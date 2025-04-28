@@ -5,6 +5,7 @@ import { FirestoreService } from '../common/services/firestore.service'; // Serv
 //para que funcione ngModel en los inputs
 import { FormsModule } from '@angular/forms';
 //para los iconos
+import { Router } from '@angular/router';
 
 import { addIcons } from 'ionicons';
 import * as icons from 'ionicons/icons'; 
@@ -29,7 +30,7 @@ export class HomePage {
 
   cargando: boolean = false;  // Bandera para mostrar un spinner de carga (true/false)
 
-  constructor(private firestoreService: FirestoreService) { // Constructor: se inyecta el servicio FirestoreService
+  constructor(private firestoreService: FirestoreService, private router: Router) { // Constructor: se inyecta el servicio FirestoreService
     this.loadusers(); //Al crear el componente (es decir la pagina), se ejecuta loadusers() para cargar los usuarios desde Firestore.
     this.initUser(); // Inicializamos un usuario vacío para el formulario
 
@@ -88,6 +89,10 @@ export class HomePage {
       this.cargando = true; 
       await this.firestoreService.deleteDocumentID('Usuarios' , user.id); 
       this.cargando = false; 
+    }
+
+    goToRoutine() {
+      this.router.navigate(['/routine']);
     }
 
 
