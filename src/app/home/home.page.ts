@@ -132,6 +132,17 @@ login = {
           console.warn('Por favor completa el email y la contraseña.');
         }
       }
+
+      logout() {
+        this.firebaesSvc.logout()
+          .then(() => {
+            console.log('Sesión cerrada correctamente');
+          })
+          .catch(err => {
+            console.error('Error al cerrar sesión:', err);
+          });
+      }
+      
       
   
 }

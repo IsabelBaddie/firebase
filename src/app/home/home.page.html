@@ -13,6 +13,25 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-card>
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input type="email" [(ngModel)]="login.email" name="loginEmail"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label position="stacked">Password</ion-label>
+      <ion-input type="password" [(ngModel)]="login.password" name="loginPassword"></ion-input>
+    </ion-item>
+  
+    <ion-button expand="block" (click)="submit()">Iniciar sesión</ion-button>
+  </ion-card>
+  
+  <ion-button expand="block" color="medium" (click)="logout()">
+    Cerrar sesión
+  </ion-button>
+  
+
  <ion-card>
   <ion-item>
     <ion-label>Nombre: </ion-label>
