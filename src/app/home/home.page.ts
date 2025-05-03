@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonLabel, IonList, IonItem, IonInput, IonCard, IonButton, IonSpinner, IonIcon, IonButtons } from '@ionic/angular/standalone';
 import { UserI } from '../common/models/user.models'; // Importamos nuestro modelo UserI (interfaz para un usuario)
 import { FirestoreService } from '../common/services/firestore.service'; // Servicio personalizado para trabajar con Firestore
+import {FirebaseServiceTsService} from 'src/app/services/firebase.service.ts.service'; 
+
 //para que funcione ngModel en los inputs
 import { FormsModule } from '@angular/forms';
 //para los iconos
@@ -10,6 +12,8 @@ import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import * as icons from 'ionicons/icons'; 
 import { User } from 'firebase/auth';
+
+
 
 @Component({
   selector: 'app-home',
@@ -29,6 +33,13 @@ export class HomePage {
   newUser: UserI;   // Objeto que usamos para el formulario de crear/editar usuarios
 
   cargando: boolean = false;  // Bandera para mostrar un spinner de carga (true/false)
+
+  
+login = {
+  email: '',
+  password: ''
+};
+
 
   constructor(private firestoreService: FirestoreService, private router: Router) { // Constructor: se inyecta el servicio FirestoreService
     this.loadusers(); //Al crear el componente (es decir la pagina), se ejecuta loadusers() para cargar los usuarios desde Firestore.
@@ -58,11 +69,12 @@ export class HomePage {
   }
 
   initUser() {
-        // Inicializamos un usuario vacío para limpiar el formulario
     this.newUser = {
-      nombre:null,
+      nombre: null,
       edad: null,
-      id: this.firestoreService.createIdDoc() //llamamos al servicio para que nos genere un id aleatorio por la libreria para el nuevo usuario 
+      id: this.firestoreService.createIdDoc(),
+      email: '',
+      password: ''
     }
   }
 
@@ -95,7 +107,32 @@ export class HomePage {
       this.router.navigate(['/routine']);
     }
 
+    firebaesSvc = inject(FirebaseServiceTsService); //inyectamos el servicio 
 
 
+    /*submit() {
+      if(this.form.valid) {
+        this.firebaesSvc.signIn(this.form.value as UserI).then( res => {
+          console.log(res); 
+        } )
+      }
+    }*/
+      submit() {
+        const { email, password } = this.login;
+      
+        if (email && password) {
+          this.firebaesSvc.signIn(email, password)
+            .then(res => {
+              console.log('Login exitoso:', res);
+            })
+            .catch(err => {
+              console.error('Error en login:', err);
+            });
+        } else {
+          console.warn('Por favor completa el email y la contraseña.');
+        }
+      }
+      
   
 }
+
