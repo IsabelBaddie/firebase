@@ -142,6 +142,30 @@ login = {
             console.error('Error al cerrar sesión:', err);
           });
       }
+
+      async registerAndSave() {
+        const { email, password, nombre, edad } = this.newUser;
+      
+        if (email && password && nombre && edad) {
+          try {
+            // 1. Registrar en Firebase Auth
+            const cred = await this.firebaesSvc.register({ email, password });
+      
+            // 2. Guardar en Firestore (usando el ID generado o el UID del auth)
+            this.newUser.id = cred.user.uid; // usa el UID del auth como ID único
+            await this.firestoreService.createDocumentID(this.newUser, 'Usuarios', this.newUser.id);
+      
+            console.log('Usuario registrado y guardado correctamente.');
+            this.initUser();
+      
+          } catch (err) {
+            console.error('Error al registrar:', err);
+          }
+        } else {
+          console.warn('Completa todos los campos antes de registrar.');
+        }
+      }
+      
       
       
   

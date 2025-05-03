@@ -1,86 +1,65 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-card>
+  <!-- FORMULARIO LOGIN -->
+  <ion-item>
+    <ion-label position="stacked">Email</ion-label>
+    <ion-input type="email" [(ngModel)]="login.email" name="loginEmail"></ion-input>
+  </ion-item>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-item>
+    <ion-label position="stacked">Password</ion-label>
+    <ion-input type="password" [(ngModel)]="login.password" name="loginPassword"></ion-input>
+  </ion-item>
 
-  <ion-card>
-    <ion-item>
-      <ion-label position="stacked">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="login.email" name="loginEmail"></ion-input>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label position="stacked">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="login.password" name="loginPassword"></ion-input>
-    </ion-item>
-  
-    <ion-button expand="block" (click)="submit()">Iniciar sesión</ion-button>
-  </ion-card>
-  
-  <ion-button expand="block" color="medium" (click)="logout()">
-    Cerrar sesión
-  </ion-button>
-  
+  <ion-button expand="block" (click)="submit()">Iniciar sesión</ion-button>
+</ion-card>
 
- <ion-card>
+<ion-card>
+  <!-- FORMULARIO REGISTRO -->
+  <ion-item>
+    <ion-label position="stacked">Email</ion-label>
+    <ion-input type="email" [(ngModel)]="newUser.email" name="registerEmail"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Password</ion-label>
+    <ion-input type="password" [(ngModel)]="newUser.password" name="registerPassword"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Nombre</ion-label>
+    <ion-input [(ngModel)]="newUser.nombre" name="registerNombre"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Edad</ion-label>
+    <ion-input type="number" [(ngModel)]="newUser.edad" name="registerEdad"></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" (click)="registerAndSave()">Registrar usuario</ion-button>
+</ion-card>
+
+<ion-button expand="block" color="medium" (click)="logout()">
+  Cerrar sesión
+</ion-button>
+
+<ion-card>
   <ion-item>
     <ion-label>Nombre: </ion-label>
-    <ion-input [(ngModel)]="newUser.nombre"></ion-input>
+    <ion-input [(ngModel)]="newUser.nombre" name="nombre"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label>Edad: </ion-label>
-    <ion-input [(ngModel)]="newUser.edad"></ion-input>
+    <ion-input [(ngModel)]="newUser.edad" name="edad"></ion-input>
   </ion-item>
- </ion-card>
+</ion-card>
 
- <div> 
-    <ion-button (click)="save()" expand="block" fill="clear" shape="round">
-      Guardar
-    </ion-button>
-</div>
-
-@if (cargando) {
-  <div style = "text-align: center;">
-    <ion-spinner name="bubbles"></ion-spinner>
-  </div>
-}
-
-
-<ion-list>
-  @for (user of users; track $index) {
-    <ion-item>
-      <ion-label>
-        Nombre: {{user.nombre}}
-        <p> Edad: {{user.edad}}</p>
-      </ion-label>
-      <ion-buttons slot="end">
-        <ion-button (click)="edit(user)">
-          <ion-icon slot="icon-only" name="add" color="primary"></ion-icon>
-        </ion-button>
-
-        <ion-button (click)="delete(user)">
-          <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-
-  
-    </ion-item>
-  }
-</ion-list>
+<ion-button expand="block" fill="clear" shape="round" (click)="save()">
+  Guardar
+</ion-button>
 
 <ion-button (click)="goToRoutine()" expand="block" fill="clear" shape="round">
   Navegar a Routine
 </ion-button>
+  
 
-</ion-content>
