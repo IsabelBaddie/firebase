@@ -1,19 +1,9 @@
-
-export enum Nombre {
-  Equilibrio = "Asanas de equilibrio de pie",
-  Anterior = "Asanas de flexión anterior",
-  Posterior = "Asanas de flexión posterior",
-  Invertidas = "Asanas invertidas",
-  Tronco = "Asanas de equilibrio de brazos/core", 
-  Apertura = "Asanas de apertura de caderas", 
-  Meditacion = "Asanas de meditación", 
-}
-
 export interface CategoriaI {
     id: string;
-    nombre: Nombre;
+    nombre: string;
     beneficios: string[];         
     contraindicaciones: string[]; 
+    ejemplos_posturas: string[]; 
   
   }
   
