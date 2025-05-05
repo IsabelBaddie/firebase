@@ -9,12 +9,12 @@
   <ion-card>
     <ion-item>
       <ion-label position="stacked">Nombre de la rutina</ion-label>
-      <ion-input [(ngModel)]="newRoutine.nombreRutina" placeholder="Ej: Piernas" required></ion-input>
+      <ion-input [(ngModel)]="newRoutine.nombre" placeholder="Ej: Piernas" required></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Descripción</ion-label>
-      <ion-input [(ngModel)]="newRoutine.descripcion" placeholder="Ej: Sentadillas, peso muerto..." required></ion-input>
+      <ion-label position="stacked">Dificultad</ion-label>
+      <ion-input [(ngModel)]="newRoutine.dificultad" placeholder="Ej: Sentadillas, peso muerto..." required></ion-input>
     </ion-item>
 
     <ion-item>
@@ -32,8 +32,8 @@
   <ion-list>
     <ion-item *ngFor="let rutina of routines">
       <ion-label>
-        <h2>{{ rutina.nombreRutina }}</h2>
-        <p>{{ rutina.descripcion }}</p>
+        <h2>{{ rutina.nombre }}</h2>
+        <p>{{ rutina.dificultad }}</p>
         <p>Duración: {{ rutina.duracion }} minutos</p>
       </ion-label>
 

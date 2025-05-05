@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 import { addIcons } from 'ionicons';
 import * as icons from 'ionicons/icons'; 
-import { User } from 'firebase/auth';
+
 
 
 

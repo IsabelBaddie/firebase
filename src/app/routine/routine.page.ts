@@ -45,9 +45,15 @@ export class RoutinePage {
   initRoutine() {
     this.newRoutine = {
       id: this.firestoreService.createIdDoc(),
-      nombreRutina: null,
-      descripcion: null,
-      duracion: null
+      nombre: null,
+      dificultad: null,
+      duracion: null,
+      puntuacion: null,
+      numeroValoraciones: null,
+      media: null,
+      //COMENTARIO
+      fechaCreacion: null,
+      vecesUsada: null,
     };
   }
 

@@ -1,7 +1,20 @@
+import { Timestamp } from "firebase/firestore";
+
+export enum Dificultad {
+  Facil = "fácil",
+  Media = "medio",
+  Dificil = "difícil"
+}
+
 export interface RoutineI {
     id: string;
-    nombreRutina: string;
-    descripcion: string;
-    duracion: number; // duración en minutos, por ejemplo
+    nombre: string;
+    dificultad: Dificultad;
+    duracion: number; 
+    puntuacion: number | null;
+    numeroValoraciones: number | null;
+    media: number | null;
+    fechaCreacion: Date | Timestamp | null;
+    vecesUsada: number; 
   }
   
