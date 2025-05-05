@@ -70,9 +70,8 @@ login = {
 
   initUser() {
     this.newUser = {
-      nombre: null,
-      edad: null,
       id: this.firestoreService.createIdDoc(),
+      nombre: null,
       email: '',
       password: ''
     }
@@ -144,9 +143,9 @@ login = {
       }
 
       async registerAndSave() {
-        const { email, password, nombre, edad } = this.newUser;
+        const { email, password, nombre} = this.newUser;
       
-        if (email && password && nombre && edad) {
+        if (email && password && nombre) {
           try {
             // 1. Registrar en Firebase Auth
             const cred = await this.firebaesSvc.register({ email, password });

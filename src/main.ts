@@ -15,6 +15,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
-    provideRouter(routes, withPreloading(PreloadAllModules)), provideFirebaseApp(() => initializeApp({ projectId: "pruebafirebase-app", appId: "1:263973053466:web:273b3a777f510972131da3", storageBucket: "pruebafirebase-app.firebasestorage.app", apiKey: "AIzaSyCHqtj-RVy1ECogl8vt2-HljsSYoHV2E84", authDomain: "pruebafirebase-app.firebaseapp.com", messagingSenderId: "263973053466", measurementId: "G-BJEZFS04S0" })), provideAuth(() => getAuth()), provideFirestore(() => getFirestore()), provideStorage(() => getStorage()),
+    provideRouter(routes, withPreloading(PreloadAllModules)), provideFirebaseApp(() => 
+      initializeApp({ projectId: "pruebafirebase-app", appId: "1:263973053466:web:273b3a777f510972131da3", storageBucket: "pruebafirebase-app.firebasestorage.app", apiKey: "AIzaSyCHqtj-RVy1ECogl8vt2-HljsSYoHV2E84", authDomain: "pruebafirebase-app.firebaseapp.com", messagingSenderId: "263973053466", measurementId: "G-BJEZFS04S0" })), provideAuth(() => getAuth()), provideFirestore(() => getFirestore()), provideStorage(() => getStorage()),
   ],
 });

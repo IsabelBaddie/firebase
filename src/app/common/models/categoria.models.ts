@@ -1,3 +1,4 @@
+
 export enum Nombre {
   Equilibrio = "Asanas de equilibrio de pie",
   Anterior = "Asanas de flexión anterior",

@@ -30,32 +30,11 @@
     <ion-input [(ngModel)]="newUser.nombre" name="registerNombre"></ion-input>
   </ion-item>
 
-  <ion-item>
-    <ion-label position="stacked">Edad</ion-label>
-    <ion-input type="number" [(ngModel)]="newUser.edad" name="registerEdad"></ion-input>
-  </ion-item>
-
   <ion-button expand="block" (click)="registerAndSave()">Registrar usuario</ion-button>
 </ion-card>
 
 <ion-button expand="block" color="medium" (click)="logout()">
   Cerrar sesión
-</ion-button>
-
-<ion-card>
-  <ion-item>
-    <ion-label>Nombre: </ion-label>
-    <ion-input [(ngModel)]="newUser.nombre" name="nombre"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Edad: </ion-label>
-    <ion-input [(ngModel)]="newUser.edad" name="edad"></ion-input>
-  </ion-item>
-</ion-card>
-
-<ion-button expand="block" fill="clear" shape="round" (click)="save()">
-  Guardar
 </ion-button>
 
 <ion-button (click)="goToRoutine()" expand="block" fill="clear" shape="round">
