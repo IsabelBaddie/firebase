@@ -18,7 +18,8 @@ export class PosturasService {
           "postura": "Tadasana o Samasthiti – Postura de la montaña",
           "video": "https://www.youtube.com/watch?v=27wklcKtPuw",
           "duracion": 1,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 1
       },
       {
           "id": "", 
@@ -26,7 +27,8 @@ export class PosturasService {
           "postura": "Urdhva Hastasana – Postura de mano hacia arriba",
           "video": "https://www.youtube.com/watch?v=6JCj40FKdVk",
           "duracion": 1,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 1
       },
       {
         "id": "",
@@ -34,7 +36,8 @@ export class PosturasService {
           "postura": "Uttanasana – Postura de la pinza de pie",
           "video": "https://www.youtube.com/watch?v=HDRncCgsqq0",
           "duracion": 1,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 3
       },
       {
         "id": "",
@@ -42,7 +45,8 @@ export class PosturasService {
           "postura": "Ardha Uttanasana – Postura de la media flexión hacia adelante",
           "video": "https://www.youtube.com/watch?v=3G4bzeV23VU",
           "duracion": 1,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 3
       },
       {
         "id": "",
@@ -50,7 +54,8 @@ export class PosturasService {
           "postura": "Adho mukha svanasana – perro boca abajo",
           "video": "https://www.youtube.com/watch?v=G74sC-56ops",
           "duracion": 3,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 1
       },
       {
         "id": "",
@@ -58,7 +63,8 @@ export class PosturasService {
           "postura": "Utkatasana – Postura de la silla",
           "video": "https://www.youtube.com/watch?v=iAclKRoyOjU",
           "duracion": 1,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 1
       },
       {
         "id": "",
@@ -66,7 +72,8 @@ export class PosturasService {
           "postura": "Virabhadrasana I – Postura del guerrero 1",
           "video": "https://www.youtube.com/watch?v=i1PD4cj69oQ",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 1
       },
       {
         "id": "",
@@ -74,7 +81,8 @@ export class PosturasService {
           "postura": "Virabhadrasana II – Postura del guerrero 2",
           "video": "",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 1
       },
       {
         "id": "",
@@ -82,7 +90,8 @@ export class PosturasService {
           "postura": "Virabhadrasana III – Postura del guerrero 3",
           "video": "https://www.youtube.com/watch?v=-8hKpr5dxFM",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 2
       },
       {
         "id": "",
@@ -90,7 +99,8 @@ export class PosturasService {
           "postura": "Padangusthasana – mano a dedo gordo",
           "video": "",
           "duracion": 1,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 1
       },
       {
         "id": "",
@@ -98,7 +108,8 @@ export class PosturasService {
           "postura": "Padahastasana – mano hasta pie",
           "video": "https://www.youtube.com/watch?v=lXmaLiRtZMI",
           "duracion": 1,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 1
       },
       {
         "id": "",
@@ -106,7 +117,8 @@ export class PosturasService {
           "postura": "Anjaneyasana – Postura de luna creciente",
           "video": "https://www.youtube.com/watch?v=4-ek61i_IWU",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 1
       },
       {
         "id": "",
@@ -114,7 +126,8 @@ export class PosturasService {
           "postura": "Anjaneyasana – postura de corredor ascendiente",
           "video": "https://www.youtube.com/watch?v=TN5ptZ-scGg",
           "duracion": 3,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 1
       },
       {
         "id": "",
@@ -122,7 +135,8 @@ export class PosturasService {
           "postura": "Utthita trikonasana – Postura del triángulo extendido",
           "video": "https://www.youtube.com/watch?v=ifHE6wsw3TA",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 1
       },
       {
         "id": "",
@@ -130,7 +144,8 @@ export class PosturasService {
           "postura": "Utthita parsvakonasana – Ángulo lateral extendido",
           "video": "https://www.youtube.com/watch?v=EvfTyyMIlFo",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 1
       },
       {
         "id": "",
@@ -138,7 +153,8 @@ export class PosturasService {
           "postura": "Parivrtta parsvakonasana – Ángulo lateral en torsion(también es una postura de torsión)",
           "video": "https://www.youtube.com/watch?v=B9lQA-74d_Q",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 1
       },
       {
         "id": "",
@@ -146,21 +162,24 @@ export class PosturasService {
           "postura": "Ardha chandrasana – Media luna",
           "video": "https://www.youtube.com/watch?v=8vROKGeU8e0",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 2
       },
       {"id": "",
           "imagen": "https://www.theclassyoga.com/wp-content/uploads/2024/03/parsvottanasana-piramide.jpg",
           "postura": "Parsvottanasana – Postura de la pirámide",
           "video": "https://www.youtube.com/watch?v=cWNfuhwpQEI",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 2
       },
       { "id": "",
           "imagen": "https://www.theclassyoga.com/wp-content/uploads/2024/03/vrksasana-postura-arbol.jpg",
           "postura": "Vrksasana – Postura del árbol",
           "video": "https://www.youtube.com/watch?v=H3TfAT-VLFQ",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 2
       },
       {
         "id": "",
@@ -168,7 +187,8 @@ export class PosturasService {
           "postura": "Garudasana – Postura del águila",
           "video": "https://www.youtube.com/watch?v=Dp4r4V48cmw",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 2
       },
       {
         "id": "",
@@ -176,7 +196,8 @@ export class PosturasService {
           "postura": "Prasarita padottanasana – Estiramiento con las piernas separadas: a, b, c y d",
           "video": "https://www.youtube.com/watch?v=qeScpoH19CQ",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 1
       },
       {
         "id": "",
@@ -184,7 +205,8 @@ export class PosturasService {
           "postura": "Vasisthasana – Plancha lateral",
           "video": "https://www.youtube.com/watch?v=PhS7iy--i00",
           "duracion": 3,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 2
       },
       {
         "id": "",
@@ -192,7 +214,8 @@ export class PosturasService {
           "postura": "Urdhva prasarita ekapadasana – Standing split – Pie arriba extendido",
           "video": "",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media , 
+          "categoria_id": 2
       },
       {
         "id": "",
@@ -200,7 +223,8 @@ export class PosturasService {
           "postura": "Svarga dvidasana – Ave del paraíso",
           "video": "https://www.youtube.com/watch?v=cqZUJP9KNuc",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 2
       },
       {
         "id": "",
@@ -208,7 +232,8 @@ export class PosturasService {
           "postura": "Natarajasana – Postura del bailarin (también es una postura de extensión / backbends)",
           "video": "https://www.youtube.com/watch?v=8LtXpuPNnSc",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 2
       },
       {
         "id": "",
@@ -216,7 +241,8 @@ export class PosturasService {
           "postura": "Tithibasana B (también es una postura de apertura de caderas)",
           "video": "https://www.youtube.com/watch?v=8K0ghCn8O_E",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 1
       },
       {
         "id": "",
@@ -224,7 +250,8 @@ export class PosturasService {
           "postura": "Sukhasana – postura fácil",
           "video": "https://www.youtube.com/watch?v=U67ESke7kYo",
           "duracion": 1,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -232,7 +259,8 @@ export class PosturasService {
           "postura": "Padmasana – postura del loto",
           "video": "https://www.youtube.com/watch?v=Ny0M5XfQMJg",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -240,7 +268,8 @@ export class PosturasService {
           "postura": "Dandasana – postura del bastón",
           "video": "https://www.youtube.com/watch?v=fdnV0uvXoBc",
           "duracion": 1,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -248,15 +277,8 @@ export class PosturasService {
           "postura": "Paschimottanasana – pinza sentada",
           "video": "https://www.youtube.com/watch?v=e_JB0If_aLU",
           "duracion": 2,
-          "dificultad": Dificultad.Media
-      },
-      {
-        "id": "",
-          "imagen": "https://www.theclassyoga.com/wp-content/uploads/2024/04/janu-sirsasana-rodilla-frente.jpg",
-          "postura": "Janu sirsasana – rodilla a la frente",
-          "video": "https://www.youtube.com/watch?v=NGHplXYz2Ys",
-          "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -264,7 +286,8 @@ export class PosturasService {
           "postura": "Ardha Baddha Padma Paschimottanasana",
           "video": "https://www.youtube.com/watch?v=AVUVV0B6c-g",
           "duracion": 1,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -272,7 +295,8 @@ export class PosturasService {
           "postura": "Triang Muka Eka Pada Paschimottanasana",
           "video": "https://www.youtube.com/watch?v=4HC0gq_FTHA",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -280,7 +304,8 @@ export class PosturasService {
           "postura": "Janu Sirsasana A, B, C – Postura de la cabeza a la rodilla",
           "video": "https://www.youtube.com/watch?v=eY2FxIY1XLE",
           "duracion": 1,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -288,7 +313,8 @@ export class PosturasService {
           "postura": "Marichyasana A y B – Postura de Mariachi o Rayo de Luz",
           "video": "https://www.youtube.com/watch?v=-WGXF9_vaAM",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -296,7 +322,8 @@ export class PosturasService {
           "postura": "Paripurna Navasana – Postura del Barco",
           "video": "https://www.youtube.com/watch?v=GMWN4-n0pt4",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -304,7 +331,8 @@ export class PosturasService {
           "postura": "Baddha Konasana – Mariposa",
           "video": "https://www.youtube.com/watch?v=kfMvTtByPlQ",
           "duracion": 2,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -312,7 +340,8 @@ export class PosturasService {
           "postura": "Upavistha Konasana A y B – Ángulo Sentado",
           "video": "https://www.youtube.com/watch?v=z-V1jIv16hc",
           "duracion": 2,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -320,7 +349,8 @@ export class PosturasService {
           "postura": "Hanumanasana – Postura del Espagat o del Mono",
           "video": "https://www.youtube.com/watch?v=Vr-cljplKww",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -328,7 +358,8 @@ export class PosturasService {
           "postura": "Virasana – Postura del Héroe",
           "video": "https://www.youtube.com/watch?v=0C3WP-gtVQE",
           "duracion": 2,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -336,7 +367,8 @@ export class PosturasService {
           "postura": "Supta Virasana – Postura del Héroe Reclinado",
           "video": "https://www.youtube.com/watch?v=GUO8s4d1slA",
           "duracion": 2,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -344,7 +376,8 @@ export class PosturasService {
           "postura": "Preparación Eka Pada Raja Kapotasana – Preparación Postura Paloma",
           "video": "https://www.youtube.com/watch?v=L5BuvGP3fPs",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -352,7 +385,8 @@ export class PosturasService {
           "postura": "Parivrtta Agnistambhasana – Paloma Doble (También es Postura de Torsión)",
           "video": "https://www.youtube.com/watch?v=Zi_tOrTtw1g",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -360,7 +394,8 @@ export class PosturasService {
           "postura": "Utthan Pristhasana – Postura del Lagarto",
           "video": "https://www.youtube.com/watch?v=1QhsbJc5-mE",
           "duracion": 1,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -368,7 +403,8 @@ export class PosturasService {
           "postura": "Malasana – Postura del Indio",
           "video": "https://www.youtube.com/watch?v=dzKtaYcIotU",
           "duracion": 3,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -376,7 +412,8 @@ export class PosturasService {
           "postura": "Parighasana – Postura de la Puerta",
           "video": "https://www.youtube.com/watch?v=I82R1YJl_f4",
           "duracion": 1,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -384,7 +421,8 @@ export class PosturasService {
           "postura": "Skandasana – Postura del Dios de la Guerra o Surfers Lunge",
           "video": "https://www.youtube.com/watch?v=vK-3L2EHh_k",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -392,7 +430,8 @@ export class PosturasService {
           "postura": "Ubhaya Padangusthasana – Mano a Ambos Dedos Gordos",
           "video": "https://www.youtube.com/watch?v=t2e7dm_oHck",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -400,7 +439,8 @@ export class PosturasService {
           "postura": "Kurmasana – Postura de la Tortuga",
           "video": "https://www.youtube.com/watch?v=S5dglhQXz_U",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -408,7 +448,8 @@ export class PosturasService {
           "postura": "Garbha Pindasana – Postura del Feto",
           "video": "https://www.youtube.com/watch?v=RaVEV053eH0",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -416,7 +457,8 @@ export class PosturasService {
           "postura": "Ardha Baddha Padmottanasana – Flexión Loto Medio Hacia Adelante",
           "video": "",
           "duracion": 2,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -424,7 +466,8 @@ export class PosturasService {
           "postura": "Krounchasana – Postura de la Garza o Grulla",
           "video": "https://www.youtube.com/watch?v=LRAESmywW0k",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -432,7 +475,8 @@ export class PosturasService {
           "postura": "Vatayanasana – Postura del Caballo",
           "video": "https://www.youtube.com/watch?v=3cYiDpPLXlg",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -440,7 +484,8 @@ export class PosturasService {
           "postura": "Gomukhasana – Cara de Vaca",
           "video": "https://www.youtube.com/watch?v=6_ZXkW3WAP4",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 8
       },
       {
         "id": "",
@@ -448,7 +493,8 @@ export class PosturasService {
           "postura": "Bhujangasana – Postura de la cobra",
           "video": "https://www.youtube.com/watch?v=9Wp4DGMjRm0",
           "duracion": 1,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 4
       },
       {
         "id": "",
@@ -456,7 +502,8 @@ export class PosturasService {
           "postura": "Urdhva mukha svanasana – perro boca arriba",
           "video": "https://www.youtube.com/watch?v=L57v0Lq9EcM",
           "duracion": 1,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 4
       },
       {
         "id": "",
@@ -464,7 +511,8 @@ export class PosturasService {
           "postura": "Salabhasana – postura de la langosta o saltamontes",
           "video": "https://www.youtube.com/watch?v=dBXi-zaRwAI",
           "duracion": 1,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 4
       },
       {
         "id": "",
@@ -472,7 +520,8 @@ export class PosturasService {
           "postura": "Dhanurasana – postura del arco",
           "video": "https://www.youtube.com/watch?v=c4xTHERsr7Q",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 4
       },
       {
         "id": "",
@@ -480,7 +529,8 @@ export class PosturasService {
           "postura": "Matsyasana – postura del pez",
           "video": "https://www.youtube.com/watch?v=rdgoCgdrEoU",
           "duracion": 1,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 4
       },
       {
         "id": "",
@@ -488,7 +538,8 @@ export class PosturasService {
           "postura": "Setu bandha sarvangasana – postura del medio puente",
           "video": "https://www.youtube.com/watch?v=1BwwbvgaeV4",
           "duracion": 1,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 4
       },
       {
         "id": "",
@@ -496,7 +547,8 @@ export class PosturasService {
           "postura": "Urdhva dhanurasana – postura del puente",
           "video": "https://www.youtube.com/watch?v=tNKWp2S3En4",
           "duracion": 2,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 4
       },
       {
         "id": "",
@@ -504,7 +556,8 @@ export class PosturasService {
           "postura": "Ustrasana – postura del camello",
           "video": "https://www.youtube.com/watch?v=vlNLJ-mVWHM",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 4
       },
       {
         "id": "",
@@ -512,7 +565,8 @@ export class PosturasService {
           "postura": "Camatkarasana -­postura salvaje",
           "video": "https://www.youtube.com/watch?v=0IKWaTBkGfU",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 4
       },
       {
         "id": "",
@@ -520,7 +574,8 @@ export class PosturasService {
           "postura": "Eka pada rajakapotasana – postura de la paloma",
           "video": "https://www.youtube.com/watch?v=b_FPLGeUcSc",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 4
       },
       {
         "id": "",
@@ -528,7 +583,8 @@ export class PosturasService {
           "postura": "Natarajasana – Postura del bailarin (también es una postura de extensión / backbends)",
           "video": "https://www.youtube.com/watch?v=8LtXpuPNnSc",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 4
       },
       {
         "id": "",
@@ -536,7 +592,8 @@ export class PosturasService {
           "postura": "Kapotasana",
           "video": "https://www.youtube.com/watch?v=csuTRPftR4I",
           "duracion": 2,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 4
       },
       {
         "id": "",
@@ -544,7 +601,8 @@ export class PosturasService {
           "postura": "Parivrtta trikonasana – Postura del triángulo en torsion (también es una postura de pie)",
           "video": "https://www.youtube.com/watch?v=V00SS-_Wcr0",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 7
       },
       {
         "id": "",
@@ -552,7 +610,8 @@ export class PosturasService {
           "postura": "Parivrtta Agnistambhasana – paloma doble (también es postura de torsión)",
           "video": "https://www.youtube.com/watch?v=r3oXBEd4YpY",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil , 
+          "categoria_id": 7
       },
       {
         "id": "",
@@ -560,7 +619,8 @@ export class PosturasService {
           "postura": "Jathara parivrtta – postura del abdomen girado",
           "video": "https://www.youtube.com/watch?v=z1pfUgDrHVU",
           "duracion": 1,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 7
       },
       {
         "id": "",
@@ -568,7 +628,8 @@ export class PosturasService {
           "postura": "Ardha matsyendrasana – postura del señor de los peces",
           "video": "https://www.youtube.com/watch?v=GKEtI-YALKQ",
           "duracion": 1,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 7
       },
       {
         "id": "",
@@ -576,7 +637,8 @@ export class PosturasService {
           "postura": "Bharadvajasana – postura de bharadvaja",
           "video": "https://www.youtube.com/watch?v=aIiMquPfrL4",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 7
       },
       {
         "id": "",
@@ -584,7 +646,8 @@ export class PosturasService {
           "postura": "Marichyasana c – postura de mariachi c",
           "video": "https://www.youtube.com/watch?v=EznA6OXk0-4",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil , 
+          "categoria_id": 7
       },
       {
         "id": "",
@@ -592,7 +655,8 @@ export class PosturasService {
           "postura": "Parsva bakasana – postura del cuervo lateral (también es una postura de equilibrio sobre manos)",
           "video": "https://www.youtube.com/watch?v=Ly_0HT2J6DQ",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil , 
+          "categoria_id": 7
       },
       {
         "id": "",
@@ -600,7 +664,8 @@ export class PosturasService {
           "postura": "Eka pada koundinyasana I – postura de splits voladores 1",
           "video": "https://www.youtube.com/watch?v=7NARxE1ivU4",
           "duracion": 2,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil , 
+          "categoria_id": 7
       },
       {
         "id": "",
@@ -608,7 +673,8 @@ export class PosturasService {
           "postura": "Chaturanga Dandasana – Plancha",
           "video": "https://www.youtube.com/watch?v=NyCA2_tnxzY",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 6
       },
       {
         "id": "",
@@ -616,7 +682,8 @@ export class PosturasService {
           "postura": "Utthita Chaturanga Dandasana – Plancha extendida",
           "video": "https://www.youtube.com/watch?v=9fxH74UwA7s",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 6
       },
       {
         "id": "",
@@ -624,7 +691,8 @@ export class PosturasService {
           "postura": "Kakasana – postura del cuervo con rodillas a los lados de las codos",
           "video": "https://www.youtube.com/watch?v=SevyFSshg9A",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 6
       },
       {
         "id": "",
@@ -632,7 +700,8 @@ export class PosturasService {
           "postura": "Bakasana – postura del cuervo con rodillas cerca de las axilas",
           "video": "https://www.youtube.com/watch?v=3tKCo7fcs6Q",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 6
       },
       {
         "id": "",
@@ -640,71 +709,80 @@ export class PosturasService {
           "postura": "Parsva bakasana – postura del cuervo lateral (también es una postura de equilibrio sobre manos)",
           "video": "https://www.youtube.com/watch?v=Ly_0HT2J6DQ",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 6
       },
       {
         "id": "",
           "imagen": "https://www.theclassyoga.com/wp-content/uploads/2024/04/eka-pada-galavasana.jpg",
           "postura": "Eka pada galavasana – postura de galava, viejo sabio",
           "video": "https://www.youtube.com/watch?v=tJYU42NJPlY",
-          "duracion": 4,
-          "dificultad": Dificultad.Dificil
+          "duracion": 2,
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 6
       },
       {
         "id": "",
           "imagen": "https://www.theclassyoga.com/wp-content/uploads/2024/04/eka-pada-koundinyasana-I-splits-voladores-1.jpg",
           "postura": "Eka pada koundinyasana I – postura de splits voladores 1",
           "video": "https://www.youtube.com/watch?v=7NARxE1ivU4",
-          "duracion": 5,
-          "dificultad": Dificultad.Dificil
+          "duracion": 1,
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 6
       },
       {
         "id": "",
           "imagen": "https://www.theclassyoga.com/wp-content/uploads/2024/04/eka-pada-koundinyasana-II-splits-voladores-2.jpg",
           "postura": "Eka Pada Koundinyasana II – Postura de splits voladores 2",
           "video": "https://www.youtube.com/watch?v=YExZpxFpKns",
-          "duracion": 5,
-          "dificultad": Dificultad.Dificil
+          "duracion": 2,
+          "dificultad": Dificultad.Dificil , 
+          "categoria_id": 6
       },
       {
         "id": "",
           "imagen": "https://www.theclassyoga.com/wp-content/uploads/2020/06/8-angulos-astavakrasana-large.jpeg",
           "postura": "Astavakrasana – 8 ángulos",
           "video": "https://www.youtube.com/watch?v=BheNJQyiOZk",
-          "duracion": 4,
-          "dificultad": Dificultad.Dificil
+          "duracion": 1,
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 6
       },
       {
         "id": "",
           "imagen": "https://www.theclassyoga.com/wp-content/uploads/2024/04/tithibasana-A.jpg",
           "postura": "tithibasana A",
           "video": "https://www.youtube.com/watch?v=j-sHDVcV6to",
-          "duracion": 3,
-          "dificultad": Dificultad.Media
+          "duracion": 2,
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 6
       },
       {
         "id": "",
           "imagen": "https://www.theclassyoga.com/wp-content/uploads/2024/04/salamba-sarvangasana-postura-de-la-vela.jpg",
           "postura": "Salamba sarvangasana – postura de la vela o sobre los hombros (reina de las posturas)",
           "video": "https://www.youtube.com/watch?v=Bq_nta7qqGA",
-          "duracion": 5,
-          "dificultad": Dificultad.Dificil
+          "duracion": 4,
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 5
       },
       {
         "id": "",
           "imagen": "https://www.theclassyoga.com/wp-content/uploads/2024/04/halasana-postura-del-arado.jpg",
           "postura": "Halasana – postura del arado",
           "video": "https://www.youtube.com/watch?v=btd65FhJ6bU",
-          "duracion": 4,
-          "dificultad": Dificultad.Media
+          "duracion": 3,
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 5
       },
       {
         "id": "",
           "imagen": "https://www.theclassyoga.com/wp-content/uploads/2024/04/urdvha-padmasana.jpg",
           "postura": "Urdvha Padmasana",
           "video": "https://www.youtube.com/watch?v=uK1X-MrfPa4",
-          "duracion": 2,
-          "dificultad": Dificultad.Dificil
+          "duracion": 1,
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 5
       },
       {
         "id": "",
@@ -712,7 +790,8 @@ export class PosturasService {
           "postura": "Pindasana",
           "video": "https://www.youtube.com/watch?v=RaVEV053eH0",
           "duracion": 3,
-          "dificultad": Dificultad.Media
+          "dificultad": Dificultad.Media, 
+          "categoria_id": 5
       },
       {
         "id": "",
@@ -720,7 +799,8 @@ export class PosturasService {
           "postura": "Tripode HeadStand",
           "video": "https://www.youtube.com/watch?v=aKfFupH5GSY",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 5
       },
       {
         "id": "",
@@ -728,15 +808,17 @@ export class PosturasService {
           "postura": "Sirsasana – postura sobre la cabeza (rey/padre de las posturas)",
           "video": "https://www.youtube.com/watch?v=5IadVo8uans",
           "duracion": 2,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 5
       },
       {
         "id": "",
           "imagen": "https://www.theclassyoga.com/wp-content/uploads/2024/04/pincha-mayurasana.jpg",
           "postura": "Pincha mayurasana – postura de equilibrio sobre los antebrazos",
           "video": "https://www.youtube.com/watch?v=59BofGqrqHc",
-          "duracion": 5,
-          "dificultad": Dificultad.Dificil
+          "duracion": 1,
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 5
       },
       {
         "id": "",
@@ -744,7 +826,8 @@ export class PosturasService {
           "postura": "Vrschikasana – Escorpión",
           "video": "https://www.youtube.com/watch?v=5ncRFXulRDw",
           "duracion": 2,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 5
       },
       {
         "id": "",
@@ -752,7 +835,8 @@ export class PosturasService {
           "postura": "Adho mukha vrksasana – Postura del pino o Handstand",
           "video": "https://www.youtube.com/watch?v=U8Xn18CSb6w",
           "duracion": 1,
-          "dificultad": Dificultad.Dificil
+          "dificultad": Dificultad.Dificil, 
+          "categoria_id": 5
       },
       {
         "id": "",
@@ -760,7 +844,8 @@ export class PosturasService {
           "postura": "Savasana",
           "video": "https://www.youtube.com/watch?v=ABZtPSFg5g8",
           "duracion": 5,
-          "dificultad": Dificultad.Facil
+          "dificultad": Dificultad.Facil, 
+          "categoria_id": 9
       }
   ];
 
@@ -775,7 +860,8 @@ export class PosturasService {
         postura: postura.postura,
         video: postura.video,
         duracion: postura.duracion,
-        dificultad: postura.dificultad
+        dificultad: postura.dificultad,
+        categoria_id: postura.categoria_id
       });
 
     

@@ -11,5 +11,6 @@ export interface PosturaI {
     video: string;
     duracion: number; 
     dificultad: Dificultad;
+    categoria_id: number; 
   }
   
