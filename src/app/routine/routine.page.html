@@ -6,29 +6,30 @@
 
 <ion-content class="ion-padding">
 
+  <!-- FORMULARIO PARA RUTINA -->
   <ion-card>
     <ion-item>
       <ion-label position="stacked">Nombre de la rutina</ion-label>
-      <ion-input [(ngModel)]="newRoutine.nombre" placeholder="Ej: Piernas" required></ion-input>
+      <ion-input [(ngModel)]="newRoutine.nombre" required></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Dificultad</ion-label>
-      <ion-input [(ngModel)]="newRoutine.dificultad" placeholder="Ej: Sentadillas, peso muerto..." required></ion-input>
+      <ion-input [(ngModel)]="newRoutine.dificultad" required></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Duración (minutos)</ion-label>
-      <ion-input type="number" [(ngModel)]="newRoutine.duracion" placeholder="Ej: 45" required></ion-input>
+      <ion-input type="number" [(ngModel)]="newRoutine.duracion" required></ion-input>
     </ion-item>
 
     <ion-button expand="block" color="primary" (click)="saveRoutine()" [disabled]="cargando">
       {{ cargando ? 'Guardando...' : 'Guardar Rutina' }}
       <ion-spinner *ngIf="cargando" slot="end"></ion-spinner>
     </ion-button>
-
   </ion-card>
 
+  <!-- LISTA DE RUTINAS -->
   <ion-list>
     <ion-item *ngFor="let rutina of routines">
       <ion-label>
@@ -45,6 +46,26 @@
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-button>
       </ion-buttons>
+    </ion-item>
+
+    <!-- Botón para mostrar posturas -->
+    <ion-item *ngFor="let rutina of routines">
+      <ion-button expand="full" (click)="showPosturas(rutina.id)">Ver posturas</ion-button>
+
+      <ion-card *ngIf="selectedPosturas.length > 0 && rutinaSeleccionadaId === rutina.id">
+        <ion-card-header>
+          <ion-card-title>Posturas asociadas</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let postura of selectedPosturas">
+              <ion-label>
+                {{ postura.postura }} ({{ postura.dificultad }})
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
     </ion-item>
   </ion-list>
 

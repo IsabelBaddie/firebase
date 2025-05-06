@@ -2,7 +2,7 @@ import { Timestamp } from "firebase/firestore";
 
 export enum Dificultad {
   Facil = "fácil",
-  Media = "medio",
+  Media = "media",
   Dificil = "difícil"
 }
 
