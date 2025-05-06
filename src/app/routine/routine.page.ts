@@ -7,7 +7,6 @@ import {
 } from '@ionic/angular/standalone';
 //añado: 
 
-
 import { FirestoreService } from '../common/services/firestore.service';
 import { RoutineI } from '../common/models/routine.models';
 import { PosturaI } from '../common/models/postura.models';
@@ -38,13 +37,12 @@ export class RoutinePage implements OnInit {
   cargando: boolean = false;
 
   // Nuevos para manejar posturas
-  rutinaSeleccionadaId: string | null = null;
-  posturaSeleccionadaId: { [key: string]: string } = {};
-  selectedPosturas: any[] = [];
-  
- 
+  selectedPosturas: PosturaI[] = [];
+  //rutinaSeleccionadaId: string = '';
+  rutinaSeleccionada: any = null;
+
   todasLasPosturas: PosturaI[] = [];
-    // Para almacenar el ID de postura seleccionada por rutina
+  posturaSeleccionadaId: { [rutinaId: string]: string } = {};  // Para almacenar el ID de postura seleccionada por rutina
 rutina: any;
 
   constructor(
@@ -103,25 +101,40 @@ rutina: any;
     this.newRoutine = routine;
   }
 
-  async showPosturas(rutinaId: string) {
-    this.rutinaSeleccionadaId = rutinaId;
-    this.selectedPosturas = await this.posturaRutinaService.getPosturasDeRutina(rutinaId);
+  /*showPosturas(rutina: RoutineI) {
+    this.rutinaSeleccionada = rutina;
+    this.posturaRutinaService.getPosturasDeRutina(rutina.id)
+      .then(posturas => this.selectedPosturas = posturas)
+      .catch(err => console.error('Error al obtener posturas', err));
+  }*/
+      async showPosturas(rutinaId: string) {
+        this.rutinaSeleccionada = this.routines.find(r => r.id === rutinaId);
+        if (!this.rutinaSeleccionada) {
+          console.error('No se encontró la rutina con ID:', rutinaId);
+          return;
+        }
+      
+        // Mostrar posturas de esa rutina
+        try {
+          this.selectedPosturas = await this.posturaRutinaService.getPosturasDeRutina(rutinaId);
+          console.log('Posturas asociadas a la rutina:', this.selectedPosturas);
+        } catch (error) {
+          console.error('Error al obtener las posturas:', error);
+        }
+      }
+      
 
-    if (this.selectedPosturas.length === 0) {
-      console.log(`La rutina con ID ${rutinaId} no tiene posturas asociadas.`);
-    } else {
-      console.log(`Posturas de la rutina ${rutinaId}:`, this.selectedPosturas);
-    }
-  }
-
-  async cargarTodasLasPosturas() {
-    const colRef = collection(this.firestore, 'posturas');
-    const snapshot = await getDocs(colRef);
-    this.todasLasPosturas = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    })) as PosturaI[];
-  }
+      async cargarTodasLasPosturas() {
+        const colRef = collection(this.firestore, 'posturas');
+        const snapshot = await getDocs(colRef);
+        this.todasLasPosturas = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })) as PosturaI[];
+      
+        console.log('Posturas cargadas:', this.todasLasPosturas);
+      }
+      
 
   async asociarPostura(rutinaId: string) {
     const posturaId = this.posturaSeleccionadaId[rutinaId];
@@ -132,102 +145,3 @@ rutina: any;
     this.showPosturas(rutinaId); // Refresca la lista de posturas asociadas
   }
 }
-
-/*export class RoutinePage implements OnInit {
-
-  routines: RoutineI[] = [];
-  newRoutine: RoutineI;
-  cargando: boolean = false;
-
-  // Nuevos para manejar posturas
-  selectedPosturas: PosturaI[] = [];
-  rutinaSeleccionadaId: string = '';
-  todasLasPosturas: PosturaI[] = [];
-  posturaSeleccionadaId: { [rutinaId: string]: string } = {};
-
-  constructor(
-    private firestoreService: FirestoreService,
-    private posturaRutinaService: PosturaRutinaService,
-    private firestore: Firestore
-  ) {
-    addIcons({ create: icons['create'], trash: icons['trash'] });
-    this.initRoutine();
-    this.loadRoutines();
-  }
-
-  ngOnInit() {
-    this.cargarTodasLasPosturas();
-  }
-
-  loadRoutines() {
-    this.firestoreService.getCollectionChanges<RoutineI>('Rutinas').subscribe(data => {
-      if (data) {
-        this.routines = data;
-      }
-    });
-  }
-
-  initRoutine() {
-    this.newRoutine = {
-      id: this.firestoreService.createIdDoc(),
-      nombre: null,
-      dificultad: null,
-      duracion: null,
-      puntuacion: null,
-      numeroValoraciones: null,
-      media: null,
-      fechaCreacion: null,
-      vecesUsada: null,
-    };
-  }
-
-  async saveRoutine() {
-    this.cargando = true;
-    await this.firestoreService.createDocumentID(this.newRoutine, 'Rutinas', this.newRoutine.id);
-    this.cargando = false;
-    this.initRoutine();
-    this.loadRoutines();
-  }
-
-  async deleteRoutine(routine: RoutineI) {
-    this.cargando = true;
-    await this.firestoreService.deleteDocumentID('Rutinas', routine.id);
-    this.cargando = false;
-    this.loadRoutines();
-  }
-
-  editRoutine(routine: RoutineI) {
-    console.log("Editando rutina -> ", routine);
-    this.newRoutine = routine;
-  }
-
-  async showPosturas(rutinaId: string) {
-    this.rutinaSeleccionadaId = rutinaId;
-    this.selectedPosturas = await this.posturaRutinaService.getPosturasDeRutina(rutinaId);
-
-    if (this.selectedPosturas.length === 0) {
-      console.log(`La rutina con ID ${rutinaId} no tiene posturas asociadas.`);
-    } else {
-      console.log(`Posturas de la rutina ${rutinaId}:`, this.selectedPosturas);
-    }
-  }
-
-  async cargarTodasLasPosturas() {
-    const colRef = collection(this.firestore, 'posturas');
-    const snapshot = await getDocs(colRef);
-    this.todasLasPosturas = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    })) as PosturaI[];
-  }
-
-  async asociarPostura(rutinaId: string) {
-    const posturaId = this.posturaSeleccionadaId[rutinaId];
-    if (!posturaId) return;
-
-    await this.posturaRutinaService.addPosturaARutina(rutinaId, posturaId);
-    this.posturaSeleccionadaId[rutinaId] = '';
-    this.showPosturas(rutinaId); // refresca lista
-  }
-
-}*/

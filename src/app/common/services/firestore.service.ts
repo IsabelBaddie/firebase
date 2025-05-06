@@ -26,7 +26,7 @@ export class FirestoreService {
 
 
     return collectionData(refcollection)  as Observable<tipo[]>; //nos devuelve un observable y le pasamos una referencia a la coleccion 
-    //return collectionData(refcollection ) as Observable<tipo>; ASÍ LO TIENE ÉL Y SIN EL : Observable<tipo[]> 
+    
   }
 
     //nuestro crud
@@ -53,7 +53,7 @@ export class FirestoreService {
 
   deleteDocumentID(enlace: string, idDoc : string) {  // Método que borra un documento
     const document = doc(this.firestore, `${enlace}/${idDoc}`)
-    return deleteDoc(document); // <- falta esto
+    return deleteDoc(document); 
   }
 
   delateDocFromRef(ref: any) {  // Métod que borra un documento directamente desde su referencia

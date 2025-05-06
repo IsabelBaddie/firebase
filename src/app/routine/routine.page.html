@@ -30,7 +30,7 @@
   </ion-card>
 
   <!-- FORMULARIO PARA ASOCIAR POSTURA A UNA RUTINA -->
-  <ion-card *ngIf="rutinaSeleccionadaId">
+  <ion-card *ngIf="rutinaSeleccionada?.id">
     <ion-card-header>
       <ion-card-title>Agregar Postura a la Rutina</ion-card-title>
     </ion-card-header>
@@ -38,21 +38,26 @@
       <ion-item>
         <ion-label position="stacked">Selecciona una postura</ion-label>
         <ion-select
-        [(ngModel)]="posturaSeleccionadaId[rutina.id]"
-        name="posturaSelect_{{ rutina.id }}"
-        placeholder="Selecciona una postura">
-        <ion-select-option *ngFor="let postura of todasLasPosturas" [value]="postura.id">
-          {{ postura.postura }} ({{ postura.dificultad }})
-        </ion-select-option>
-      </ion-select>
-      
+          *ngIf="rutinaSeleccionada?.id"
+          [(ngModel)]="posturaSeleccionadaId[rutinaSeleccionada.id]"
+          [name]="'posturaSelect_' + rutinaSeleccionada.id"
+          placeholder="Selecciona una postura">
+          <ion-select-option *ngFor="let postura of todasLasPosturas" [value]="postura.id">
+            {{ postura.postura }} ({{ postura.dificultad }})
+          </ion-select-option>
+        </ion-select>
       </ion-item>
-
-      <ion-button expand="block" color="primary" (click)="asociarPostura(rutinaSeleccionadaId)" [disabled]="!posturaSeleccionadaId[rutinaSeleccionadaId]">
+  
+      <ion-button
+        expand="block"
+        color="primary"
+        (click)="asociarPostura(rutinaSeleccionada.id)"
+        [disabled]="!posturaSeleccionadaId[rutinaSeleccionada.id]">
         Asociar Postura
       </ion-button>
     </ion-card-content>
   </ion-card>
+  
 
   <!-- LISTA DE RUTINAS -->
   <ion-list>
@@ -77,20 +82,19 @@
     </ion-item>
 
     <!-- Mostrar posturas de la rutina -->
-    <ion-card *ngIf="selectedPosturas.length > 0 && rutinaSeleccionadaId === rutina.id">
+    <ion-card *ngIf="rutinaSeleccionada">
       <ion-card-header>
-        <ion-card-title>Posturas asociadas</ion-card-title>
+        <ion-card-title>Posturas asociadas a la rutina: {{ rutinaSeleccionada.nombre }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <ion-list>
           <ion-item *ngFor="let postura of selectedPosturas">
-            <ion-label>
-              {{ postura.postura }} ({{ postura.dificultad }})
-            </ion-label>
+            <ion-label>{{ postura.postura }} ({{ postura.dificultad }})</ion-label>
           </ion-item>
         </ion-list>
       </ion-card-content>
     </ion-card>
+    
   </ion-list>
 
 </ion-content>

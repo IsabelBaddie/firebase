@@ -10,32 +10,38 @@ import { PosturaI } from '../models/postura.models';
 export class PosturaRutinaService {
   private firestore = inject(Firestore);
 
-  // Añadir una relación postura-rutina
+  //Este método agrega una relación entre una rutina y una postura. es async, lo que significa que usa await internamente y devuelve una promesa.
   async addPosturaARutina(rutinaId: string, posturaId: string) {
-    const colRef = collection(this.firestore, 'posturaRutina');
-    return addDoc(colRef, {
+    const coleccionPosturaRutina = collection(this.firestore, 'posturarutina'); //función que obtiene la colección 
+    //insertamos un documento en esa colección coleccionPosturaRutina metiendo en los campos rutina_id y postura_id los parametros recibidos. 
+    return addDoc(coleccionPosturaRutina, { //al addDoc debemos pasarle la coleccion y data que son los datos del documento
       rutina_id: rutinaId,
       postura_id: posturaId,
     });
   }
 
-  // Obtener las posturas asociadas a una rutina
+  //Método que busca todas las posturas asociadas a una rutina específica. Retorna una promesa que se resuelve con un array de PosturaI.
   async getPosturasDeRutina(rutinaId: string): Promise<PosturaI[]> {
-    const relacionesRef = collection(this.firestore, 'posturaRutina');
-    const q = query(relacionesRef, where('rutina_id', '==', rutinaId));
-    const snapshot = await getDocs(q);
+    console.log("entra en getPosturasDeRutina");
+    const coleccionPosturaRutina = collection(this.firestore, 'posturarutina'); //obtenemos una colección
+    const consultaQuery = query(coleccionPosturaRutina, where('rutina_id', '==', rutinaId)); //realizamos una consulta donde rutina_id del documento sea igual al parametro pasado
+    const instantanea = await getDocs(consultaQuery); //realizamos una consulta que nos devuelve una instantanea con los documentos que coinciden 
+  
 
-    const posturas: PosturaI[] = [];
-    for (const docSnap of snapshot.docs) {
-      const data = docSnap.data() as PosturaRutinaI;
-      const posturaRef = doc(this.firestore, 'posturas', data.postura_id);
-      const posturaSnap = await getDoc(posturaRef);
-      if (posturaSnap.exists()) {
-        posturas.push({ id: posturaSnap.id, ...posturaSnap.data() } as PosturaI);
+    const posturas: PosturaI[] = []; //array de posturas vacío 
+    
+    for (const documentoInstantanea of instantanea.docs) { //vamos recorriendo todos los documentos de la instantanea 
+      const data = documentoInstantanea.data() as PosturaRutinaI; //casteamos los datos como la interfaz 
+      const documentopostura = doc(this.firestore, 'posturas', data.postura_id); //obtenemos el documento postura con el postura_id
+      const posturaSnap = await getDoc(documentopostura); //leemos los datos de esa postura 
+      if (posturaSnap.exists()) { //si hay datos 
+        posturas.push({ id: posturaSnap.id, ...posturaSnap.data() } as PosturaI); //añadimos al array de posturas
       }
     }
     return posturas;
   }
+
+  
 }
 
 
