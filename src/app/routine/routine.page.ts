@@ -38,10 +38,13 @@ export class RoutinePage implements OnInit {
   cargando: boolean = false;
 
   // Nuevos para manejar posturas
-  selectedPosturas: PosturaI[] = [];
-  rutinaSeleccionadaId: string = '';
+  rutinaSeleccionadaId: string | null = null;
+  posturaSeleccionadaId: { [key: string]: string } = {};
+  selectedPosturas: any[] = [];
+  
+ 
   todasLasPosturas: PosturaI[] = [];
-  posturaSeleccionadaId: { [rutinaId: string]: string } = {};  // Para almacenar el ID de postura seleccionada por rutina
+    // Para almacenar el ID de postura seleccionada por rutina
 rutina: any;
 
   constructor(
