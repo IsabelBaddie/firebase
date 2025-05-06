@@ -1,18 +1,25 @@
-import { collection, addDoc,   query, where,  getDocs,  doc,  getDoc } from 'firebase/firestore';
-import { inject } from '@angular/core';
+import { collection, addDoc, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
+import { inject, Injectable } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { PosturaRutinaI } from '../models/posturarutina.models';
 import { PosturaI } from '../models/postura.models';
 
-
+@Injectable({
+  providedIn: 'root'
+})
 export class PosturaRutinaService {
   private firestore = inject(Firestore);
 
-  addPosturaRutina(data: Omit<PosturaRutinaI, 'id'>) {
+  // Añadir una relación postura-rutina
+  async addPosturaARutina(rutinaId: string, posturaId: string) {
     const colRef = collection(this.firestore, 'posturaRutina');
-    return addDoc(colRef, data);
+    return addDoc(colRef, {
+      rutina_id: rutinaId,
+      postura_id: posturaId,
+    });
   }
 
+  // Obtener las posturas asociadas a una rutina
   async getPosturasDeRutina(rutinaId: string): Promise<PosturaI[]> {
     const relacionesRef = collection(this.firestore, 'posturaRutina');
     const q = query(relacionesRef, where('rutina_id', '==', rutinaId));
