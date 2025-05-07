@@ -17,6 +17,8 @@ import * as icons from 'ionicons/icons';
 import { collection, getDocs } from 'firebase/firestore';
 import { Firestore } from '@angular/fire/firestore';
 
+import { Storage } from '@ionic/storage-angular'; //para el almacenamiento de datos en el dispositivo
+
 @Component({
   selector: 'app-routine',
   standalone: true,
@@ -36,6 +38,9 @@ export class RoutinePage implements OnInit {
   newRoutine: RoutineI;
   cargando: boolean = false;
 
+  private storage: Storage;
+  usuarioActivo: any = null; // Variable para almacenar el usuario activo
+
   // Nuevos para manejar posturas
   selectedPosturas: PosturaI[] = [];
   //rutinaSeleccionadaId: string = '';
@@ -54,7 +59,28 @@ rutina: any;
     addIcons({ create: icons['create'], trash: icons['trash'] });
     this.initRoutine();
     this.loadRoutines();
+    this.initStorage();  // Inicializa Storage
   }
+
+  async initStorage() {
+    this.storage = await new Storage();
+    await this.storage.create();
+    await this.loadUser();
+  }
+
+  
+  async loadUser() {
+    // Recupera el usuario desde el Storage
+    this.usuarioActivo = await this.storage.get('usuarioActivo');
+
+    if (this.usuarioActivo) {
+      console.log('Usuario activo:', this.usuarioActivo);
+    } else {
+      console.log('No hay usuario activo,...');
+     
+    }
+  }
+
 
   ngOnInit() {
     this.cargarTodasLasPosturas();

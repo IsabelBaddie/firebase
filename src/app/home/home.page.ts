@@ -14,6 +14,7 @@ import * as icons from 'ionicons/icons';
 
 //para el almacenamiento de datos en el dispositivo
 import { Storage } from '@ionic/storage-angular';
+import { user } from '@angular/fire/auth';
 
 
 @Component({
@@ -155,6 +156,7 @@ export class HomePage {
 
         // Guardar el UID o email del usuario
         await this.storage.set('usuarioActivo', res.user.uid);
+        console.log('Usuario almacenado en Storage:', res.user.uid);
 
       } catch (err) {
         console.error('Error en login:', err);
