@@ -78,7 +78,7 @@ rutina: any;
       numeroValoraciones: null,
       media: null,
       fechaCreacion: null,
-      vecesUsada: null,
+      
     };
   }
 

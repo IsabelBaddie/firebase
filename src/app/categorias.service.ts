@@ -11,9 +11,9 @@ export class CategoriasService {
 
     // Método para obtener las categorías desde Firestore
     async getCategorias() {
-        const categoriasCollection = collection(this.firestore, 'categorias');
-        const querySnapshot = await getDocs(categoriasCollection);
-        const categorias = querySnapshot.docs.map((doc) => doc.data());
+        const categoriasCollection = collection(this.firestore, 'categorias'); //obtiene la colección de categorías
+        const querySnapshot = await getDocs(categoriasCollection); //obtiene los documentos de la colección
+        const categorias = querySnapshot.docs.map((doc) => doc.data()); //de esos documentos obtenemos los datos y los guardamos en un array
         return categorias;
       }
 
@@ -219,7 +219,7 @@ export class CategoriasService {
             "Sukhasana",
             "Vajrasana"]
         }   
-      // ... las demás categorías
+      
     ];
 
     const categoriasCollection = collection(this.firestore, 'categorias');
@@ -229,11 +229,10 @@ export class CategoriasService {
         const categoriasExistentes = await this.getCategorias();
         const idsExistentes = categoriasExistentes.map(categoria => categoria['id']); // Obtenemos los IDs de las categorías existentes
   
-        for (const categoria of categorias) {
+        for (const categoria of categorias) { //vamos recorriendo el array de categorías
           // Verificamos si la categoría ya existe
-          if (!idsExistentes.includes(categoria.id)) {
-            // Si no existe, la agregamos a la base de datos
-            const newDocRef = doc(categoriasCollection, categoria.id); // Usamos el ID de la categoría
+          if (!idsExistentes.includes(categoria.id)) { // Si no existe, la agregamos a la base de datos
+            const newDocRef = doc(categoriasCollection, categoria.id); // Usamos el ID de la categoría para crear una referencia al nuevo documento
             await setDoc(newDocRef, {
               id: categoria.id,
               nombre: categoria.nombre,

@@ -15,6 +15,6 @@ export interface RoutineI {
     numeroValoraciones: number | null;
     media: number | null;
     fechaCreacion: Date | Timestamp | null;
-    vecesUsada: number; 
+     
   }
   
