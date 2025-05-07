@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, setDoc, doc } from '@angular/fire/firestore';
 import { PosturaI, Dificultad } from '../app/common/models/postura.models';
+import { getDocs } from 'firebase/firestore';
 
 
 
@@ -9,6 +10,15 @@ import { PosturaI, Dificultad } from '../app/common/models/postura.models';
 })
 export class PosturasService {
   constructor(private firestore: Firestore) {}
+
+  
+  // Método para obtener las posturas desde Firestore
+  async getPosturas() {
+    const posturasCollection = collection(this.firestore, 'posturas');
+    const querySnapshot = await getDocs(posturasCollection);
+    const posturas = querySnapshot.docs.map((doc) => doc.data());
+    return posturas;
+  }
 
   async addPosturas() {
     const posturas: PosturaI[] = [
@@ -850,20 +860,30 @@ export class PosturasService {
   ];
 
     const posturasCollection = collection(this.firestore, 'posturas');
+    const querySnapshot = await getDocs(posturasCollection);
+    const idsExistentes = querySnapshot.docs.map((doc) => doc.id);
 
     for (const postura of posturas) {
-      const newDocRef = doc(posturasCollection); // genera un nuevo documento con ID único
-    
-      await setDoc(newDocRef, {
-        id: newDocRef.id, // lo añadimos manualmente
-        imagen: postura.imagen,
-        postura: postura.postura,
-        video: postura.video,
-        duracion: postura.duracion,
-        dificultad: postura.dificultad,
-        categoria_id: postura.categoria_id
-      });
-
-    
+      // Verificamos si la postura ya existe
+      if (!idsExistentes.includes(postura.id)) {
+        // Si no existe, la agregamos a la base de datos
+        const newDocRef = doc(posturasCollection, postura.id); // Usamos el ID de la postura
+        await setDoc(newDocRef, {
+          id: postura.id,
+          imagen: postura.imagen,
+          postura: postura.postura,
+          video: postura.video,
+          duracion: postura.duracion,
+          dificultad: postura.dificultad,
+          categoria_id: postura.categoria_id
+        });
+        console.log(`Postura ${postura.postura} añadida.`);
+      } else {
+        console.log(`La postura ${postura.postura} ya existe.`);
+      }
+    }
+  } catch (error: unknown) {
+    console.error("Error al insertar las posturas en Firestore", error);
   }
-} }
+
+} 

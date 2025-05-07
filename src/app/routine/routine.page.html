@@ -38,21 +38,24 @@
       <ion-item>
         <ion-label position="stacked">Selecciona una postura</ion-label>
         <ion-select
-          *ngIf="rutinaSeleccionada?.id"
-          [(ngModel)]="posturaSeleccionadaId[rutinaSeleccionada.id]"
-          [name]="'posturaSelect_' + rutinaSeleccionada.id"
-          placeholder="Selecciona una postura">
-          <ion-select-option *ngFor="let postura of todasLasPosturas" [value]="postura.id">
-            {{ postura.postura }} ({{ postura.dificultad }})
-          </ion-select-option>
-        </ion-select>
+        *ngIf="rutinaSeleccionada?.id"
+        [(ngModel)]="posturasSeleccionadasId[rutinaSeleccionada.id]"
+        [name]="'posturaSelect_' + rutinaSeleccionada.id"
+        placeholder="Selecciona una postura"
+        (ionChange)="onPosturaChange(rutinaSeleccionada.id)">
+        <ion-select-option *ngFor="let postura of todasLasPosturas" [value]="postura.id">
+          {{ postura.postura }} ({{ postura.dificultad }})
+        </ion-select-option>
+      </ion-select>
+      
+      
       </ion-item>
   
       <ion-button
         expand="block"
         color="primary"
         (click)="asociarPostura(rutinaSeleccionada.id)"
-        [disabled]="!posturaSeleccionadaId[rutinaSeleccionada.id]">
+        [disabled]="!posturasSeleccionadasId[rutinaSeleccionada.id]">
         Asociar Postura
       </ion-button>
     </ion-card-content>

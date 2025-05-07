@@ -42,7 +42,8 @@ export class RoutinePage implements OnInit {
   rutinaSeleccionada: any = null;
 
   todasLasPosturas: PosturaI[] = [];
-  posturaSeleccionadaId: { [rutinaId: string]: string } = {};  // Para almacenar el ID de postura seleccionada por rutina
+  posturasSeleccionadasId: { [key: string]: string } = {}; // inicializa el objeto vacío
+
 rutina: any;
 
   constructor(
@@ -137,11 +138,16 @@ rutina: any;
       
 
   async asociarPostura(rutinaId: string) {
-    const posturaId = this.posturaSeleccionadaId[rutinaId];
+    const posturaId = this.posturasSeleccionadasId[rutinaId];
     if (!posturaId) return;
 
     await this.posturaRutinaService.addPosturaARutina(rutinaId, posturaId);
-    this.posturaSeleccionadaId[rutinaId] = ''; // Resetea el valor después de asociar
+    this.posturasSeleccionadasId[rutinaId] = ''; // Resetea el valor después de asociar
     this.showPosturas(rutinaId); // Refresca la lista de posturas asociadas
   }
+
+  onPosturaChange(rutinaId: string) {
+    console.log('Postura seleccionada para rutina ' + rutinaId, this.posturasSeleccionadasId[rutinaId]);
+  }
+  
 }

@@ -1,12 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, setDoc, doc } from '@angular/fire/firestore';
 import { CategoriaI } from '../app/common/models/categoria.models';
+import { getDocs } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriasService {
   constructor(private firestore: Firestore) {}
+
+    // Método para obtener las categorías desde Firestore
+    async getCategorias() {
+        const categoriasCollection = collection(this.firestore, 'categorias');
+        const querySnapshot = await getDocs(categoriasCollection);
+        const categorias = querySnapshot.docs.map((doc) => doc.data());
+        return categorias;
+      }
 
   async addCategorias() {
     const categorias: CategoriaI[] = [
@@ -216,19 +225,29 @@ export class CategoriasService {
     const categoriasCollection = collection(this.firestore, 'categorias');
 
     try {
-      for (const categoria of categorias) {
-        const newDocRef = doc(categoriasCollection, categoria.id); // Usamos el ID de la categoría
-
-        await setDoc(newDocRef, {
-          id: categoria.id,
-          nombre: categoria.nombre,
-          beneficios: categoria.beneficios,
-          contraindicaciones: categoria.contraindicaciones,
-          ejemplos_posturas: categoria.ejemplos_posturas // Asegúrate de incluir este campo
-        });
+        // Primero obtenemos las categorías existentes en la base de datos
+        const categoriasExistentes = await this.getCategorias();
+        const idsExistentes = categoriasExistentes.map(categoria => categoria['id']); // Obtenemos los IDs de las categorías existentes
+  
+        for (const categoria of categorias) {
+          // Verificamos si la categoría ya existe
+          if (!idsExistentes.includes(categoria.id)) {
+            // Si no existe, la agregamos a la base de datos
+            const newDocRef = doc(categoriasCollection, categoria.id); // Usamos el ID de la categoría
+            await setDoc(newDocRef, {
+              id: categoria.id,
+              nombre: categoria.nombre,
+              beneficios: categoria.beneficios,
+              contraindicaciones: categoria.contraindicaciones,
+              ejemplos_posturas: categoria.ejemplos_posturas
+            });
+            console.log(`Categoría ${categoria.nombre} añadida.`);
+          } else {
+            console.log(`La categoría ${categoria.nombre} ya existe.`);
+          }
+        }
+      } catch (error) {
+        console.error("Error al insertar las categorías en Firestore", error);
       }
-    } catch (error) {
-      console.error("Error al insertar las categorías en Firestore", error);
-    }
   }
 }
