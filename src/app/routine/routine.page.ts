@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonLabel, IonList, IonItem, IonInput,
-  IonCard, IonButton, IonSpinner, IonIcon, IonButtons, IonCardHeader, IonCardTitle, IonCardContent, IonSelectOption
+  IonCard, IonButton, IonSpinner, IonIcon, IonButtons, IonCardHeader, IonCardTitle, IonCardContent, IonSelectOption, IonSelect
 } from '@ionic/angular/standalone';
 //añado: 
 
@@ -31,7 +31,7 @@ import { Storage } from '@ionic/storage-angular'; //para el almacenamiento de da
     IonCardContent, IonCardTitle, IonCardHeader,
     IonButtons, IonIcon, IonSpinner, IonButton, IonCard, IonInput, IonList, IonLabel,
     IonHeader, IonToolbar, IonTitle, IonContent, IonItem,
-    FormsModule, CommonModule, IonSelectOption, ReactiveFormsModule
+    FormsModule, CommonModule, IonSelectOption, ReactiveFormsModule, IonSelect
   ],
 })
 
@@ -153,7 +153,6 @@ export class RoutinePage implements OnInit {
       console.error('Error al obtener las posturas:', error);
     }
   }
-
 
   async cargarTodasLasPosturas() {
     const colRef = collection(this.firestore, 'posturas');
