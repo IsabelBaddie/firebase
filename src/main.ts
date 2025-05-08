@@ -9,13 +9,27 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 
-
+import { IonicModule } from '@ionic/angular';
+import { IonicStorageModule } from '@ionic/storage-angular'; // Asegúrate de importar IonicStorageModule
+import { Storage } from '@ionic/storage-angular'; // Importa el servicio de Storage
 
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
-    provideRouter(routes, withPreloading(PreloadAllModules)), provideFirebaseApp(() => 
-      initializeApp({ projectId: "pruebafirebase-app", appId: "1:263973053466:web:273b3a777f510972131da3", storageBucket: "pruebafirebase-app.firebasestorage.app", apiKey: "AIzaSyCHqtj-RVy1ECogl8vt2-HljsSYoHV2E84", authDomain: "pruebafirebase-app.firebaseapp.com", messagingSenderId: "263973053466", measurementId: "G-BJEZFS04S0" })), provideAuth(() => getAuth()), provideFirestore(() => getFirestore()), provideStorage(() => getStorage()),
+    provideRouter(routes, withPreloading(PreloadAllModules)),
+    provideFirebaseApp(() => initializeApp({ 
+      projectId: "pruebafirebase-app", 
+      appId: "1:263973053466:web:273b3a777f510972131da3", 
+      storageBucket: "pruebafirebase-app.firebasestorage.app", 
+      apiKey: "AIzaSyCHqtj-RVy1ECogl8vt2-HljsSYoHV2E84", 
+      authDomain: "pruebafirebase-app.firebaseapp.com", 
+      messagingSenderId: "263973053466", 
+      measurementId: "G-BJEZFS04S0" 
+    })),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
+    { provide: Storage, useClass: IonicStorageModule }, // Configuración del proveedor de Storage
   ],
 });
