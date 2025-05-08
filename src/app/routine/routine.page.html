@@ -11,17 +11,17 @@
   <ion-card>
     <ion-item>
       <ion-label position="stacked">Nombre de la rutina</ion-label>
-      <ion-input [(ngModel)]="newRoutine.nombre" required></ion-input>
+      <ion-input [(ngModel)]="nuevaRutina.nombre" required></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Dificultad</ion-label>
-      <ion-input [(ngModel)]="newRoutine.dificultad" required></ion-input>
+      <ion-input [(ngModel)]="nuevaRutina.dificultad" required></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Duración (minutos)</ion-label>
-      <ion-input type="number" [(ngModel)]="newRoutine.duracion" required></ion-input>
+      <ion-input type="number" [(ngModel)]="nuevaRutina.duracion" required></ion-input>
     </ion-item>
 
     <ion-button expand="block" color="primary" (click)="saveRoutine()" [disabled]="cargando">
@@ -65,7 +65,7 @@
 
   <!-- LISTA DE RUTINAS -->
   <ion-list>
-    <ion-item *ngFor="let rutina of routines">
+    <ion-item *ngFor="let rutina of rutinas">
       <ion-label>
         <h2>{{ rutina.nombre }}</h2>
         <p>{{ rutina.dificultad }}</p>
@@ -73,7 +73,7 @@
       </ion-label>
 
       <ion-buttons slot="end">
-        <ion-button (click)="editRoutine(rutina)">
+        <ion-button (click)="editarRutina(rutina)">
           <ion-icon slot="icon-only" name="create"></ion-icon>
         </ion-button>
         <ion-button color="danger" (click)="deleteRoutine(rutina)">

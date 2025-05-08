@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonLabel, IonList, IonItem, IonInput, IonCard, IonButton, IonSpinner, IonIcon, IonButtons } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonLabel, IonList, IonItem, IonInput, IonCard, IonButton, IonSpinner, IonIcon, IonButtons, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/angular/standalone';
 import { UserI } from '../common/models/user.models'; // Importamos nuestro modelo UserI (interfaz para un usuario)
 import { FirestoreService } from '../common/services/firestore.service'; // Servicio personalizado para trabajar con Firestore
-import { AutenticacionService } from '../common/services/autenticacion.service';   
+import { AutenticacionService } from '../common/services/autenticacion.service';
 //para que funcione ngModel en los inputs
 import { FormsModule } from '@angular/forms';
 //para los iconos
@@ -13,16 +13,15 @@ import * as icons from 'ionicons/icons';
 
 //para el almacenamiento de datos en el dispositivo
 import { Storage } from '@ionic/storage-angular';
-import { user } from '@angular/fire/auth';
-import { Auth } from 'firebase/auth';
-
+import { User } from 'firebase/auth';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonButtons, IonIcon, IonSpinner, IonButton, IonCard, IonInput, IonList, IonLabel, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonLabel,
-    FormsModule,
+  imports: [IonCardContent, IonCardTitle, IonCardHeader, IonButtons, IonIcon, IonSpinner, IonButton, IonCard, IonInput, IonList, IonLabel, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonLabel,
+    FormsModule, CommonModule
   ],
 })
 export class HomePage {
@@ -42,6 +41,8 @@ export class HomePage {
 
   cargando: boolean = false;  // Bandera para mostrar un spinner de carga (true/false)
 
+  usuarioActual: any; // Variable para almacenar el usuario activo
+
 
   login = {
     email: '',
@@ -59,9 +60,6 @@ export class HomePage {
 
     this.initStorage(); // <--- importante
   }
-
-  
-
 
   loadusers() {  // Método que escucha cambios en la colección 'Usuarios' en Firestore
     //utilizamos el metodo del servicio 
@@ -161,6 +159,10 @@ export class HomePage {
         await this.storage.set('usuarioActivo', res.user.uid);
         console.log('Usuario almacenado en Storage con este uid:', res.user.uid);
 
+          const datos = await this.autenticacion.obtenerDatosUsuario();
+          this.usuarioActual = datos; 
+          
+
       } catch (err) {
         console.error('Error en login:', err);
       }
@@ -181,17 +183,17 @@ export class HomePage {
       });
   }*/
 
-      async logout() {
-        try {
-          await this.autenticacion.logout();
-          await this.storage.remove('usuarioActivo');
-          this.router.navigate(['/home']);
-          console.log('Sesión cerrada correctamente');
-        } catch (err) {
-          console.error('Error al cerrar sesión:', err);
-        }
-      }
-      
+  async logout() {
+    try {
+      await this.autenticacion.logout();
+      await this.storage.remove('usuarioActivo');
+      this.router.navigate(['/home']);
+      console.log('Sesión cerrada correctamente');
+    } catch (err) {
+      console.error('Error al cerrar sesión:', err);
+    }
+  }
+
 
   async registerAndSave() {
     const { email, password, nombre } = this.newUser;

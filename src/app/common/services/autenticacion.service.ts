@@ -3,6 +3,9 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signO
 import { FirestoreService } from '../services/firestore.service'; // Importamos el FirestoreService
 import { Storage } from '@ionic/storage-angular'; // Importamos Storage
 import { UserI } from '../models/user.models'; // Importamos UserI
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import { Firestore } from '@angular/fire/firestore';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +16,11 @@ export class AutenticacionService {
     private auth: Auth,
     private firestoreService: FirestoreService, // Inyectamos el FirestoreService
     private storage: Storage // Inyectamos Storage
-  ) {}
+  ) { 
+    this.db = getFirestore(); // Initialize Firestore
+  }
+
+  private db: Firestore; 
 
   // Método de registro
   register(user: { email: string; password: string }) {
@@ -66,5 +73,26 @@ export class AutenticacionService {
         callback(null);
       }
     });
+  }
+
+  async obtenerDatosUsuario() {
+    const user = this.auth.currentUser; //Obtiene el usuario actualmente autenticado en Firebase Authentication. Si no hay ninguno autenticado, user será null
+    if (user) { //si hay un usuario autenticado
+      const uid = user.uid; // Obtiene el UID del usuario autenticado
+      const docRef = doc(this.db, 'Usuarios', uid); 
+      /*Crea una referencia al documento dentro de la colección **'Usuarios'** 
+      (asegúrate que esté con mayúscula si así está en Firestore).  
+👉     Esto equivale a la ruta: `/Usuarios/{uid}`.
+      */
+      const docSnap = await getDoc(docRef); //obtenemos una instantánea del documento
+
+      if (docSnap.exists()) { //si el documento existe
+        return docSnap.data();
+      } else {
+        throw new Error('No se encontró el documento del usuario.');
+      }
+    } else {
+      throw new Error('No hay usuario autenticado.');
+    }
   }
 }

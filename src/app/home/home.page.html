@@ -13,6 +13,9 @@
   <ion-button expand="block" (click)="inicio()">Iniciar sesión</ion-button>
 </ion-card>
 
+
+
+
 <ion-card>
   <!-- FORMULARIO REGISTRO -->
   <ion-item>
@@ -36,6 +39,18 @@
 <ion-button expand="block" color="medium" (click)="logout()">
   Cerrar sesión
 </ion-button>
+
+
+<ion-card *ngIf="usuarioActual">
+  <ion-card-header>
+    <ion-card-title>Bienvenido, {{ usuarioActual.nombre }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <p>Email: {{ usuarioActual.email }}</p>
+    <!-- Agrega otros campos si existen -->
+    <p>ID: {{ usuarioActual.id }}</p>
+  </ion-card-content>
+</ion-card>
 
 <ion-button (click)="goToRoutine()" expand="block" fill="clear" shape="round">
   Navegar a Routine
