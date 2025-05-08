@@ -95,4 +95,5 @@ export class AutenticacionService {
       throw new Error('No hay usuario autenticado.');
     }
   }
+
 }

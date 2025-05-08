@@ -3,6 +3,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonLabel, IonList, IonItem
 import { UserI } from '../common/models/user.models'; // Importamos nuestro modelo UserI (interfaz para un usuario)
 import { FirestoreService } from '../common/services/firestore.service'; // Servicio personalizado para trabajar con Firestore
 import { AutenticacionService } from '../common/services/autenticacion.service';
+
 //para que funcione ngModel en los inputs
 import { FormsModule } from '@angular/forms';
 //para los iconos
@@ -27,6 +28,7 @@ import { CommonModule } from '@angular/common';
 export class HomePage {
 
   private storage: Storage;
+ 
 
   async initStorage() {
     this.storage = await new Storage().create();
@@ -50,7 +52,7 @@ export class HomePage {
   };
 
 
-  constructor(private firestoreService: FirestoreService, private router: Router,) { // Constructor: se inyecta el servicio FirestoreService
+  constructor(private firestoreService: FirestoreService, private router: Router,  ) { // Constructor: se inyecta el servicio FirestoreService
     this.loadusers(); //Al crear el componente (es decir la pagina), se ejecuta loadusers() para cargar los usuarios desde Firestore.
     this.initUser(); // Inicializamos un usuario vacío para el formulario
 
@@ -161,7 +163,7 @@ export class HomePage {
 
           const datos = await this.autenticacion.obtenerDatosUsuario();
           this.usuarioActual = datos; 
-          
+          console.log('Usuario actual:', this.usuarioActual);
 
       } catch (err) {
         console.error('Error en login:', err);

@@ -11,6 +11,8 @@ import { FirestoreService } from '../common/services/firestore.service';
 import { RoutineI } from '../common/models/routine.models';
 import { PosturaI } from '../common/models/postura.models';
 import { PosturaRutinaService } from '../common/services/posturarutina.service';
+import { AutenticacionService } from '../common/services/autenticacion.service';
+
 
 import { addIcons } from 'ionicons';
 import * as icons from 'ionicons/icons';
@@ -51,10 +53,14 @@ export class RoutinePage implements OnInit {
 
   rutina: any;
 
+
+
   constructor(
     private firestoreService: FirestoreService,
     private posturaRutinaService: PosturaRutinaService,
-    private firestore: Firestore
+    private firestore: Firestore, 
+    private autenticacionService: AutenticacionService,
+
   ) {
     addIcons({ create: icons['create'], trash: icons['trash'] });
     this.initRoutine();
@@ -68,6 +74,8 @@ export class RoutinePage implements OnInit {
     await this.loadUser();
   }
 
+  
+
 
   async loadUser() {
     // Recupera el usuario desde el Storage
@@ -79,6 +87,8 @@ export class RoutinePage implements OnInit {
       console.log('No hay usuario activo,...');
 
     }
+    const datos = await this.autenticacionService.obtenerDatosUsuario();
+    this.usuarioActivo = datos;  
   }
 
   ngOnInit() {
