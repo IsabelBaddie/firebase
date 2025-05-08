@@ -21,6 +21,8 @@ import { Firestore } from '@angular/fire/firestore';
 
 import { Storage } from '@ionic/storage-angular'; //para el almacenamiento de datos en el dispositivo
 
+import { Timestamp } from 'firebase/firestore';
+
 @Component({
   selector: 'app-routine',
   standalone: true,
@@ -104,7 +106,9 @@ export class RoutinePage implements OnInit {
   }
 
   initRoutine() {
+    const fechaSolo = new Date().toISOString().split('T')[0];
     this.nuevaRutina = {
+      
       id: this.firestoreService.createIdDoc(),
       nombre: null,
       dificultad: null,
@@ -112,7 +116,7 @@ export class RoutinePage implements OnInit {
       puntuacion: null,
       numeroValoraciones: null,
       media: null,
-      fechaCreacion: null,
+      fechaCreacion: new Date(fechaSolo),
 
     };
   }

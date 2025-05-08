@@ -14,7 +14,7 @@ export interface RoutineI {
     puntuacion: number | null;
     numeroValoraciones: number | null;
     media: number | null;
-    fechaCreacion: Date | Timestamp | null;
+    fechaCreacion: Date | null;
      
   }
   
