@@ -106,7 +106,11 @@ export class RoutinePage implements OnInit {
   }
 
   initRoutine() {
-    const fechaSolo = new Date().toISOString().split('T')[0];
+    const hoy = new Date();
+    const fechaFormateada = hoy.toISOString().split('T')[0]; // "2025-05-08"
+    console.log("fechaFormateada", fechaFormateada);
+    const soloFecha = new Date(fechaFormateada); // Esto crea un Date a las 00:00:00
+    console.log("soloFecha", soloFecha);
     this.nuevaRutina = {
       
       id: this.firestoreService.createIdDoc(),
@@ -116,7 +120,7 @@ export class RoutinePage implements OnInit {
       puntuacion: null,
       numeroValoraciones: null,
       media: null,
-      fechaCreacion: new Date(fechaSolo),
+      fechaCreacion: soloFecha,
 
     };
   }
