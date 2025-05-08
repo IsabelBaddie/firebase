@@ -53,12 +53,10 @@ export class RoutinePage implements OnInit {
 
   rutina: any;
 
-
-
   constructor(
     private firestoreService: FirestoreService,
     private posturaRutinaService: PosturaRutinaService,
-    private firestore: Firestore, 
+    private firestore: Firestore,
     private autenticacionService: AutenticacionService,
 
   ) {
@@ -66,6 +64,8 @@ export class RoutinePage implements OnInit {
     this.initRoutine();
     this.cargarRutinas();
     this.initStorage();  // Inicializa Storage
+
+   // this.mostrarDatosUsuario(); // Muestra los datos del usuario al cargar el componente
   }
 
   async initStorage() {
@@ -74,22 +74,22 @@ export class RoutinePage implements OnInit {
     await this.loadUser();
   }
 
-  
-
-
-  async loadUser() {
-    // Recupera el usuario desde el Storage
-    this.usuarioActivo = await this.storage.get('usuarioActivo');
-
-    if (this.usuarioActivo) {
-      console.log('Usuario activo:', this.usuarioActivo);
-    } else {
-      console.log('No hay usuario activo,...');
-
+    async loadUser() {
+      this.autenticacionService.onAuthStateChanged(async (user) => {
+        if (user) {
+          console.log('Usuario autenticado:', user);
+          // Puedes consultar datos adicionales desde Firestore si lo necesitas
+          const datos = await this.autenticacionService.obtenerDatosUsuario();
+          this.usuarioActivo = datos;
+          // Opcional: guardar en Storage
+          await this.storage.set('usuarioActivo', datos);
+        } else {
+          console.log('No hay usuario autenticado.');
+          this.usuarioActivo = null;
+          await this.storage.remove('usuarioActivo');
+        }
+      });
     }
-    const datos = await this.autenticacionService.obtenerDatosUsuario();
-    this.usuarioActivo = datos;  
-  }
 
   ngOnInit() {
     this.cargarTodasLasPosturas();
@@ -137,7 +137,7 @@ export class RoutinePage implements OnInit {
     this.nuevaRutina = routine;
   }
 
-  
+
   async showPosturas(rutinaId: string) {
     this.rutinaSeleccionada = this.rutinas.find(r => r.id === rutinaId);
     if (!this.rutinaSeleccionada) {

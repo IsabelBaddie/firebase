@@ -129,26 +129,8 @@ export class HomePage {
     }
   }
 
-
   autenticacion = inject(AutenticacionService); //inyectamos el servicio de autenticacion
 
-  /* FUNCIONAMIENTO CORRECTO, SIN EL STORAGE: 
-   submit() {
-    const { email, password } = this.login;
-  
-    if (email && password) {
-      this.autenticacion.signIn(email, password)
-        .then(res => {
-          console.log('Login exitoso:', res);
-          
-        })
-        .catch(err => {
-          console.error('Error en login:', err);
-        });
-    } else {
-      console.warn('Por favor completa el email y la contraseña.');
-    }
-  }*/
   async inicio() {
     const { email, password } = this.login;
 
@@ -163,6 +145,7 @@ export class HomePage {
 
           const datos = await this.autenticacion.obtenerDatosUsuario();
           this.usuarioActual = datos; 
+          
           console.log('Usuario actual:', this.usuarioActual);
 
       } catch (err) {
@@ -173,23 +156,10 @@ export class HomePage {
     }
   }
 
-
-  /*FUNCIONAMIENTO CORRECTO, SIN EL STORAGE:
-  logout() {
-    this.autenticacion.logout()
-      .then(() => {
-        console.log('Sesión cerrada correctamente');
-      })
-      .catch(err => {
-        console.error('Error al cerrar sesión:', err);
-      });
-  }*/
-
   async logout() {
     try {
       await this.autenticacion.logout();
       await this.storage.remove('usuarioActivo');
-      this.router.navigate(['/home']);
       console.log('Sesión cerrada correctamente');
     } catch (err) {
       console.error('Error al cerrar sesión:', err);
@@ -219,7 +189,6 @@ export class HomePage {
       console.warn('Completa todos los campos antes de registrar.');
     }
   }
-
 
 }
 
