@@ -41,22 +41,7 @@ export class PosturaRutinaService {
     return posturas;
   }
 
-   //Método que busca todas las posturas asociadas a una rutina específica. Retorna una promesa que se resuelve con un array de PosturaI.
-   async getPosturasDeCategoria(categoriaId: string): Promise<PosturaI[]> {
-    console.log("entra en getPosturasDeCategoria");
-    const coleccionPosturas = collection(this.firestore, 'posturas'); //obtenemos una colección
-    const consultaQuery = query(coleccionPosturas, where('categoria_id', '==', categoriaId)); //realizamos una consulta donde rutina_id del documento sea igual al parametro pasado
-    const instantanea = await getDocs(consultaQuery); //realizamos una consulta que nos devuelve una instantanea con los documentos que coinciden 
-  
 
-    const posturasPorCategoria: PosturaI[] = []; //array de posturas vacío 
-    
-    for (const documentoInstantanea of instantanea.docs) { //vamos recorriendo todos los documentos de la instantanea 
-      const data = documentoInstantanea.data() as PosturaI; //casteamos los datos como la interfaz 
-      posturasPorCategoria.push(data); //añadimos al array de posturas  
-    }
-    return posturasPorCategoria;
-  }
 
   
 }

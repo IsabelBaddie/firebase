@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, setDoc, doc } from '@angular/fire/firestore';
-import { PosturaI, Dificultad } from '../app/common/models/postura.models';
+import { PosturaI, Dificultad } from '../models/postura.models';
+import { FirestoreService } from './firestore.service'; // Importamos el servicio FirestoreService
 import { getDocs } from 'firebase/firestore';
 
 
@@ -9,7 +10,7 @@ import { getDocs } from 'firebase/firestore';
   providedIn: 'root'
 })
 export class PosturasService {
-  constructor(private firestore: Firestore) {}
+  constructor(private firestore: Firestore, private firestoreService: FirestoreService) {}
 
   
   // Método para obtener las posturas desde Firestore
@@ -859,32 +860,39 @@ export class PosturasService {
       }
   ];
 
-
-    try {
-      const posturasCollection = collection(this.firestore, 'posturas');
-      const querySnapshot = await getDocs(posturasCollection);
-      const idsExistentes = querySnapshot.docs.map((doc) => doc.id);
+  try {
+    const posturasCollection = collection(this.firestore, 'posturas');
+    const querySnapshot = await getDocs(posturasCollection);
+    const idsExistentes = querySnapshot.docs.map((doc) => doc.id);
   
-      for (const postura of posturas) {
-        if (!idsExistentes.includes(postura.id)) {
-          const newDocRef = doc(posturasCollection, postura.id);
-          await setDoc(newDocRef, {
-            id: postura.id,
-            imagen: postura.imagen,
-            postura: postura.postura,
-            video: postura.video,
-            duracion: postura.duracion,
-            dificultad: postura.dificultad,
-            categoria_id: postura.categoria_id
-          });
-          console.log(`Postura ${postura.postura} añadida.`);
-        } else {
-          console.log(`La postura ${postura.postura} ya existe.`);
-        }
+    for (const postura of posturas) {
+      // Crear una referencia con ID generado automáticamente
+      const newDocRef = doc(posturasCollection);
+  
+      // Verificar que no exista ya una postura con el mismo nombre
+      const yaExiste = querySnapshot.docs.some(doc => (doc.data() as PosturaI).postura === postura.postura);
+
+  
+      if (!yaExiste) {
+        await setDoc(newDocRef, {
+          id: newDocRef.id, // Guardamos el ID generado dentro del documento
+          imagen: postura.imagen,
+          postura: postura.postura,
+          video: postura.video,
+          duracion: postura.duracion,
+          dificultad: postura.dificultad,
+          categoria_id: postura.categoria_id
+        });
+        console.log(`Postura ${postura.postura} añadida.`);
+      } else {
+        console.log(`La postura "${postura.postura}" ya existe.`);
       }
-    } catch (error: unknown) {
-      console.error("Error al insertar las posturas en Firestore", error);
     }
+  } catch (error: unknown) {
+    console.error("Error al insertar las posturas en Firestore", error);
+  }
+  
+  
   }
 
 } 

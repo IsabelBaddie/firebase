@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, setDoc, doc } from '@angular/fire/firestore';
-import { CategoriaI } from '../app/common/models/categoria.models';
-import { getDocs } from 'firebase/firestore';
+import { Firestore, collection, setDoc, doc, query } from '@angular/fire/firestore';
+import { CategoriaI } from '../models/categoria.models';
+import { getDocs, where } from 'firebase/firestore';
+import { PosturaI } from '../models/postura.models';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,22 @@ export class CategoriasService {
   constructor(private firestore: Firestore) {}
 
     // Método para obtener las categorías desde Firestore
-    async getCategorias() {
+   /* async getCategorias() {
         const categoriasCollection = collection(this.firestore, 'categorias'); //obtiene la colección de categorías
         const querySnapshot = await getDocs(categoriasCollection); //obtiene los documentos de la colección
         const categorias = querySnapshot.docs.map((doc) => doc.data()); //de esos documentos obtenemos los datos y los guardamos en un array
         return categorias;
-      }
+      }*/
+        async getCategorias(): Promise<CategoriaI[]> {
+            const coleccionCategorias = collection(this.firestore, 'categorias'); //obtenemos la colección
+            const querySnapshot = await getDocs(coleccionCategorias); //realizamos una consulta que nos devuelve una instantanea con los documentos que coinciden
+            const categorias = querySnapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data()
+            } as CategoriaI));
+            return categorias;
+          }
+          
 
   async addCategorias() {
     const categorias: CategoriaI[] = [
@@ -249,4 +260,23 @@ export class CategoriasService {
         console.error("Error al insertar las categorías en Firestore", error);
       }
   }
+
+     //Método que busca todas las posturas asociadas a una categoria específica. Retorna una promesa que se resuelve con un array de PosturaI.
+     async getPosturasDeCategoria(categoriaId: string): Promise<PosturaI[]> {
+        console.log("entra en getPosturasDeCategoria");
+        const coleccionPosturas = collection(this.firestore, 'posturas'); //obtenemos una colección
+        const consultaQuery = query(coleccionPosturas, where('categoria_id', '==', categoriaId)); //realizamos una consulta donde rutina_id del documento sea igual al parametro pasado
+        const instantanea = await getDocs(consultaQuery); //realizamos una consulta que nos devuelve una instantanea con los documentos que coinciden 
+      
+    
+        const posturasPorCategoria: PosturaI[] = []; //array de posturas vacío 
+        
+        for (const documentoInstantanea of instantanea.docs) { //vamos recorriendo todos los documentos de la instantanea 
+          const data = documentoInstantanea.data() as PosturaI; //casteamos los datos como la interfaz 
+          posturasPorCategoria.push(data); //añadimos al array de posturas  
+        }
+        return posturasPorCategoria;
+      }
+
+
 }

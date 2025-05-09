@@ -15,6 +15,7 @@ export interface RoutineI {
     numeroValoraciones: number | null;
     media: number | null;
     fechaCreacion: Date | null;
+    tipo: string | null; // Añadido para almacenar el tipo de rutina
      
   }
   

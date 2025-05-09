@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
-import { PosturasService } from './posturas.service';
-import { CategoriasService } from './categorias.service';
+import { PosturasService } from './common/services/posturas.service';
+import { CategoriasService } from './common/services/categorias.service';
 
 @Component({
   selector: 'app-root',
