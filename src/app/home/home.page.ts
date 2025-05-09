@@ -4,6 +4,8 @@ import { UserI } from '../common/models/user.models'; // Importamos nuestro mode
 import { FirestoreService } from '../common/services/firestore.service'; // Servicio personalizado para trabajar con Firestore
 import { AutenticacionService } from '../common/services/autenticacion.service';
 
+import { RutinasService } from '../common/services/rutinas.service';
+
 //para que funcione ngModel en los inputs
 import { FormsModule } from '@angular/forms';
 //para los iconos
@@ -52,7 +54,7 @@ export class HomePage {
   };
 
 
-  constructor(private firestoreService: FirestoreService, private router: Router,  ) { // Constructor: se inyecta el servicio FirestoreService
+  constructor(private firestoreService: FirestoreService, private router: Router, private rutinaService: RutinasService  ) { // Constructor: se inyecta el servicio FirestoreService
     this.loadusers(); //Al crear el componente (es decir la pagina), se ejecuta loadusers() para cargar los usuarios desde Firestore.
     this.initUser(); // Inicializamos un usuario vacío para el formulario
 
@@ -145,6 +147,8 @@ export class HomePage {
 
           const datos = await this.autenticacion.obtenerDatosUsuario();
           this.usuarioActual = datos; 
+
+this.rutinaService.crearRutinasPorDefectoParaUsuario(); // Crear rutinas por defecto para el usuario
           
           console.log('Usuario actual:', this.usuarioActual);
 
