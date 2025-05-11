@@ -278,5 +278,22 @@ export class CategoriasService {
         return posturasPorCategoria;
       }
 
+         //Método que busca todas las posturas asociadas a una categoria específica. Retorna una promesa que se resuelve con un array de PosturaI.
+     async getTodasCategorias(): Promise<CategoriaI[]> {
+        console.log("entra en getTodasCategorias");
+        const coleccionCategorias = collection(this.firestore, 'categorias'); //obtenemos una colección
+        const consultaQuery = query(coleccionCategorias); //realizamos una consulta donde rutina_id del documento sea igual al parametro pasado
+        const instantanea = await getDocs(consultaQuery); //realizamos una consulta que nos devuelve una instantanea con los documentos que coinciden 
+      
+    
+        const categorias: CategoriaI[] = []; //array de posturas vacío 
+        
+        for (const documentoInstantanea of instantanea.docs) { //vamos recorriendo todos los documentos de la instantanea 
+          const data = documentoInstantanea.data() as CategoriaI; //casteamos los datos como la interfaz 
+          categorias.push(data); //añadimos al array de posturas  
+        }
+        return categorias;
+      }
+
 
 }
