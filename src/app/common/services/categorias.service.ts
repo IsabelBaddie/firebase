@@ -261,22 +261,26 @@ export class CategoriasService {
       }
   }
 
-     //Método que busca todas las posturas asociadas a una categoria específica. Retorna una promesa que se resuelve con un array de PosturaI.
-     async getPosturasDeCategoria(categoriaId: string): Promise<PosturaI[]> {
-        console.log("entra en getPosturasDeCategoria");
-        const coleccionPosturas = collection(this.firestore, 'posturas'); //obtenemos una colección
-        const consultaQuery = query(coleccionPosturas, where('categoria_id', '==', categoriaId)); //realizamos una consulta donde rutina_id del documento sea igual al parametro pasado
-        const instantanea = await getDocs(consultaQuery); //realizamos una consulta que nos devuelve una instantanea con los documentos que coinciden 
-      
-    
-        const posturasPorCategoria: PosturaI[] = []; //array de posturas vacío 
-        
-        for (const documentoInstantanea of instantanea.docs) { //vamos recorriendo todos los documentos de la instantanea 
-          const data = documentoInstantanea.data() as PosturaI; //casteamos los datos como la interfaz 
-          posturasPorCategoria.push(data); //añadimos al array de posturas  
-        }
-        return posturasPorCategoria;
-      }
+async getPosturasDeCategoria(categoriaId: string): Promise<PosturaI[]> {
+   console.log("entra en getPosturasDeCategoria");
+   
+   // Convierte el categoriaId a número
+   const categoriaIdNumero = Number(categoriaId);
+
+   const coleccionPosturas = collection(this.firestore, 'posturas'); // obtenemos una colección
+   const consultaQuery = query(coleccionPosturas, where('categoria_id', '==', categoriaIdNumero)); // consulta con el ID como número
+   
+   const instantanea = await getDocs(consultaQuery); // realizamos la consulta
+
+   const posturasPorCategoria: PosturaI[] = []; // array de posturas vacío 
+
+   for (const documentoInstantanea of instantanea.docs) { 
+      const data = documentoInstantanea.data() as PosturaI; 
+      posturasPorCategoria.push(data); 
+   }
+   
+   return posturasPorCategoria;
+}
 
          //Método que busca todas las posturas asociadas a una categoria específica. Retorna una promesa que se resuelve con un array de PosturaI.
      async getTodasCategorias(): Promise<CategoriaI[]> {
@@ -294,6 +298,5 @@ export class CategoriasService {
         }
         return categorias;
       }
-
 
 }

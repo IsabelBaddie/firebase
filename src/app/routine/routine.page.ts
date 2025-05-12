@@ -10,7 +10,7 @@ import {
 import { FirestoreService } from '../common/services/firestore.service';
 import { RoutineI } from '../common/models/routine.models';
 import { PosturaI } from '../common/models/postura.models';
-import { PosturaRutinaService} from '../common/services/posturarutina.service';
+import { PosturaRutinaService } from '../common/services/posturarutina.service';
 import { CategoriasService } from '../common/services/categorias.service';
 import { AutenticacionService } from '../common/services/autenticacion.service';
 
@@ -57,6 +57,12 @@ export class RoutinePage implements OnInit {
   rutina: any;
   categorias: any[] = [];
 
+  posturasPorCategoria: { [categoriaId: string]: PosturaI[] } = {}; // Diccionario para guardar resultados por categoría
+  categoriaSeleccionadaId: string | null = null;
+categoriasExpandida: { [categoriaId: string]: boolean } = {};
+
+
+
   constructor(
     private firestoreService: FirestoreService,
     private posturaRutinaService: PosturaRutinaService,
@@ -70,7 +76,7 @@ export class RoutinePage implements OnInit {
     this.cargarRutinas();
     this.initStorage();  // Inicializa Storage
 
-   // this.mostrarDatosUsuario(); // Muestra los datos del usuario al cargar el componente
+    // this.mostrarDatosUsuario(); // Muestra los datos del usuario al cargar el componente
   }
 
   async initStorage() {
@@ -79,27 +85,29 @@ export class RoutinePage implements OnInit {
     await this.loadUser();
   }
 
-    async loadUser() {
-      this.autenticacionService.onAuthStateChanged(async (user) => {
-        if (user) {
-          console.log('Usuario autenticado:', user);
-          // Puedes consultar datos adicionales desde Firestore si lo necesitas
-          const datos = await this.autenticacionService.obtenerDatosUsuario();
-          this.usuarioActivo = datos;
-          // Opcional: guardar en Storage
-          await this.storage.set('usuarioActivo', datos);
-        } else {
-          console.log('No hay usuario autenticado.');
-          this.usuarioActivo = null;
-          await this.storage.remove('usuarioActivo');
-        }
-      });
-    }
-
-  ngOnInit() {
-    this.cargarTodasLasPosturas();
-    this.cargarCategorias();
+  async loadUser() {
+    this.autenticacionService.onAuthStateChanged(async (user) => {
+      if (user) {
+        console.log('Usuario autenticado:', user);
+        // Puedes consultar datos adicionales desde Firestore si lo necesitas
+        const datos = await this.autenticacionService.obtenerDatosUsuario();
+        this.usuarioActivo = datos;
+        // Opcional: guardar en Storage
+        await this.storage.set('usuarioActivo', datos);
+      } else {
+        console.log('No hay usuario autenticado.');
+        this.usuarioActivo = null;
+        await this.storage.remove('usuarioActivo');
+      }
+    });
   }
+
+async ngOnInit() {
+  this.cargarTodasLasPosturas();
+  await this.cargarCategorias(); // Espera a que se carguen
+  await this.cargarTodasLasPosturasPorCategoria(); // Luego carga las posturas por categoría
+}
+
 
   cargarRutinas() {
     this.firestoreService.getCollectionChanges<RoutineI>('Rutinas').subscribe(data => {
@@ -113,9 +121,9 @@ export class RoutinePage implements OnInit {
     const hoy = new Date();
     const fechaFormateada = hoy.toISOString().split('T')[0]; // "2025-05-08"
     console.log("fechaFormateada", fechaFormateada);
-    
+
     this.nuevaRutina = {
-      
+
       id: this.firestoreService.createIdDoc(),
       nombre: null,
       dificultad: null,
@@ -174,6 +182,8 @@ export class RoutinePage implements OnInit {
     })) as PosturaI[];
 
     console.log('Posturas cargadas:', this.todasLasPosturas);
+    console.log('Posturas con categoría_id:', this.todasLasPosturas.map(p => p.categoria_id));
+
   }
 
 
@@ -190,13 +200,46 @@ export class RoutinePage implements OnInit {
     console.log('Postura seleccionada para rutina ' + rutinaId, this.posturasSeleccionadasId[rutinaId]);
   }
 
-async cargarCategorias() {
+async cargarCategorias(): Promise<void> {
   try {
     this.categorias = await this.categoriasService.getTodasCategorias();
     console.log('Categorías cargadas:', this.categorias);
   } catch (error) {
     console.error('Error al cargar categorías:', error);
   }
+  console.log('IDs de categorías:', this.categorias.map(c => c.id));
+
 }
+
+
+  async cargarTodasLasPosturasPorCategoria() {
+    for (const categoria of this.categorias) {
+      const posturas = await this.categoriasService.getPosturasDeCategoria(categoria.id);
+      this.posturasPorCategoria[categoria.id] = posturas;
+      console.log(`Posturas de la categoría ${categoria.nombre}:`, posturas);
+    }
+  }
+
+  async togglePosturasCategoria(categoriaId: string) {
+  // Si ya está expandida, la colapsamos
+  if (this.categoriasExpandida[categoriaId]) {
+    this.categoriasExpandida[categoriaId] = false;
+    return;
+  }
+
+  // Si no tiene posturas cargadas, las pedimos
+  if (!this.posturasPorCategoria[categoriaId]) {
+    try {
+      const posturas = await this.categoriasService.getPosturasDeCategoria(categoriaId);
+      this.posturasPorCategoria[categoriaId] = posturas;
+    } catch (error) {
+      console.error('Error al cargar posturas de la categoría:', error);
+    }
+  }
+
+  // Expandimos la categoría
+  this.categoriasExpandida[categoriaId] = true;
+}
+
 
 }

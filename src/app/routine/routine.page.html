@@ -94,20 +94,32 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Categorías disponibles</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-list>
-          <ion-item *ngFor="let categoria of categorias">
-            <ion-label>
-              {{ categoria.nombre }}
-            </ion-label>
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Categorías disponibles</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item *ngFor="let categoria of categorias">
+        <ion-label>{{ categoria.nombre }}</ion-label>
+        <ion-button expand="block" (click)="togglePosturasCategoria(categoria.id)">
+          {{ categoriasExpandida[categoria.id] ? 'Ocultar Posturas' : 'Ver Posturas' }}
+        </ion-button>
+        
+        <!-- Posturas por categoría -->
+        <div *ngIf="categoriasExpandida[categoria.id]">
+          <ion-item *ngFor="let postura of posturasPorCategoria[categoria.id]">
+            <ion-label>{{ postura.postura }} ({{ postura.dificultad }})</ion-label>
           </ion-item>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+
+
+
+    
 
 
   </ion-list>
