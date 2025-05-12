@@ -1,0 +1,14 @@
+<ion-content class="ion-padding">
+  <p *ngIf="rutina">
+    Comentario para: <strong>{{ rutina.nombre }}</strong>
+  </p>
+  <ion-item>
+    <ion-label position="stacked">Tu nombre</ion-label>
+    <ion-input
+      type="text"
+      [(ngModel)]="name"
+      placeholder="Escribe tu nombre"
+    ></ion-input>
+  </ion-item>
+  <ion-button expand="full" (click)="cerrarModal()">Cerrar</ion-button>
+</ion-content>

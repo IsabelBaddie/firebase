@@ -96,5 +96,7 @@ async getTodasLasRutinas(): Promise<RoutineI[]> {
     }
   }
 
+
+
   
 }

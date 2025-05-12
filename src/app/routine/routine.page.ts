@@ -24,6 +24,9 @@ import { Firestore } from '@angular/fire/firestore';
 import { Storage } from '@ionic/storage-angular'; //para el almacenamiento de datos en el dispositivo
 
 import { Timestamp } from 'firebase/firestore';
+import { ComentarioModalComponent } from '../comentario-modal/comentario-modal.component';
+import { ModalController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-routine',
@@ -31,12 +34,14 @@ import { Timestamp } from 'firebase/firestore';
   templateUrl: 'routine.page.html',
   styleUrls: ['routine.page.scss'],
   providers: [PosturaRutinaService, CategoriasService],
-  imports: [
-    IonCardContent, IonCardTitle, IonCardHeader,
-    IonButtons, IonIcon, IonSpinner, IonButton, IonCard, IonInput, IonList, IonLabel,
-    IonHeader, IonToolbar, IonTitle, IonContent, IonItem,
-    FormsModule, CommonModule, IonSelectOption, ReactiveFormsModule, IonSelect
-  ],
+imports: [
+      IonicModule, // <- esto te da acceso a servicios como ModalController
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ComentarioModalComponent,
+],
+
 })
 
 export class RoutinePage implements OnInit {
@@ -65,6 +70,8 @@ export class RoutinePage implements OnInit {
   categoriaSeleccionadaId: string | null = null;
   categoriasExpandida: { [categoriaId: string]: boolean } = {};
 
+  private modalActual: HTMLIonModalElement | null = null;
+
 
 
   constructor(
@@ -74,7 +81,8 @@ export class RoutinePage implements OnInit {
     private autenticacionService: AutenticacionService,
     private categoriasService: CategoriasService
     , private rutinausuarioService: RutinausuarioService // Inyecta el servicio de rutinausuario
-    , private rutinaService: RutinasService
+    , private rutinaService: RutinasService,
+    private modalController: ModalController
 
   ) {
     addIcons({ create: icons['create'], trash: icons['trash'] });
@@ -264,5 +272,29 @@ export class RoutinePage implements OnInit {
     }
   }
 
+
+  async abrirModalComentario(idRutina: string) {
+    console.log("Abrir modal de comentario para la rutina con ID:", idRutina);
+
+    if (this.modalActual) {
+      await this.modalActual.dismiss();
+      this.modalActual = null;
+      return this.modalActual;
+    }
+
+    this.modalActual = await this.modalController.create({
+      component: ComentarioModalComponent,
+      componentProps: { idRutina }, // (opcional) si quieres pasar el id
+    });
+
+    await this.modalActual.present();
+    this.modalActual.onWillDismiss().then((datosRetornados) => {
+      if(datosRetornados.data) {
+        console.log("Datos retornados del modal:", datosRetornados.data);
+      }
+
+     }) 
+    return this.modalActual;
+  }
 
 }
