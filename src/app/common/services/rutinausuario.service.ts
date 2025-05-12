@@ -11,7 +11,7 @@ export class RutinausuarioService {
   constructor(private firestore:Firestore) { }
 
   async getRutinasDeUsuario(usuarioId: string): Promise<RoutineI[]> {
-    const relacionesRef = collection(this.firestore, 'rutinaUsuario');
+    const relacionesRef = collection(this.firestore, 'rutinausuario');
     const q = query(relacionesRef, where('usuario_id', '==', usuarioId));
     const relacionesSnapshot = await getDocs(q);
   

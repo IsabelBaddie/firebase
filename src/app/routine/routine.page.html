@@ -38,30 +38,24 @@
     <ion-card-content>
       <ion-item>
         <ion-label position="stacked">Selecciona una postura</ion-label>
-        <ion-select
-        *ngIf="rutinaSeleccionada?.id"
-        [(ngModel)]="posturasSeleccionadasId[rutinaSeleccionada.id]"
-        [name]="'posturaSelect_' + rutinaSeleccionada.id"
-        placeholder="Selecciona una postura"
-        (ionChange)="onPosturaChange(rutinaSeleccionada.id)">
-        <ion-select-option *ngFor="let postura of todasLasPosturas" [value]="postura.id">
-          {{ postura.postura }} ({{ postura.dificultad }})
-        </ion-select-option>
-      </ion-select>
-      
-      
+        <ion-select *ngIf="rutinaSeleccionada?.id" [(ngModel)]="posturasSeleccionadasId[rutinaSeleccionada.id]"
+          [name]="'posturaSelect_' + rutinaSeleccionada.id" placeholder="Selecciona una postura"
+          (ionChange)="onPosturaChange(rutinaSeleccionada.id)">
+          <ion-select-option *ngFor="let postura of todasLasPosturas" [value]="postura.id">
+            {{ postura.postura }} ({{ postura.dificultad }})
+          </ion-select-option>
+        </ion-select>
+
+
       </ion-item>
-  
-      <ion-button
-        expand="block"
-        color="primary"
-        (click)="asociarPostura(rutinaSeleccionada.id)"
+
+      <ion-button expand="block" color="primary" (click)="asociarPostura(rutinaSeleccionada.id)"
         [disabled]="!posturasSeleccionadasId[rutinaSeleccionada.id]">
         Asociar Postura
       </ion-button>
     </ion-card-content>
   </ion-card>
-  
+
 
   <!-- LISTA DE RUTINAS -->
   <ion-list>
@@ -99,7 +93,23 @@
         </ion-list>
       </ion-card-content>
     </ion-card>
-    
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Categorías disponibles</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let categoria of categorias">
+            <ion-label>
+              {{ categoria.nombre }}
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+
   </ion-list>
 
 </ion-content>

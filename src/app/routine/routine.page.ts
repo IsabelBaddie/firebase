@@ -10,7 +10,8 @@ import {
 import { FirestoreService } from '../common/services/firestore.service';
 import { RoutineI } from '../common/models/routine.models';
 import { PosturaI } from '../common/models/postura.models';
-import { PosturaRutinaService } from '../common/services/posturarutina.service';
+import { PosturaRutinaService} from '../common/services/posturarutina.service';
+import { CategoriasService } from '../common/services/categorias.service';
 import { AutenticacionService } from '../common/services/autenticacion.service';
 
 
@@ -28,7 +29,7 @@ import { Timestamp } from 'firebase/firestore';
   standalone: true,
   templateUrl: 'routine.page.html',
   styleUrls: ['routine.page.scss'],
-  providers: [PosturaRutinaService],
+  providers: [PosturaRutinaService, CategoriasService],
   imports: [
     IonCardContent, IonCardTitle, IonCardHeader,
     IonButtons, IonIcon, IonSpinner, IonButton, IonCard, IonInput, IonList, IonLabel,
@@ -54,12 +55,14 @@ export class RoutinePage implements OnInit {
   posturasSeleccionadasId: { [key: string]: string } = {}; // inicializa el objeto vacío
 
   rutina: any;
+  categorias: any[] = [];
 
   constructor(
     private firestoreService: FirestoreService,
     private posturaRutinaService: PosturaRutinaService,
     private firestore: Firestore,
     private autenticacionService: AutenticacionService,
+    private categoriasService: CategoriasService
 
   ) {
     addIcons({ create: icons['create'], trash: icons['trash'] });
@@ -95,6 +98,7 @@ export class RoutinePage implements OnInit {
 
   ngOnInit() {
     this.cargarTodasLasPosturas();
+    this.cargarCategorias();
   }
 
   cargarRutinas() {
@@ -185,5 +189,14 @@ export class RoutinePage implements OnInit {
   onPosturaChange(rutinaId: string) {
     console.log('Postura seleccionada para rutina ' + rutinaId, this.posturasSeleccionadasId[rutinaId]);
   }
+
+async cargarCategorias() {
+  try {
+    this.categorias = await this.categoriasService.getTodasCategorias();
+    console.log('Categorías cargadas:', this.categorias);
+  } catch (error) {
+    console.error('Error al cargar categorías:', error);
+  }
+}
 
 }
