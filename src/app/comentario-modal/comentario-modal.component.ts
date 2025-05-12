@@ -17,17 +17,15 @@ import { FormsModule } from '@angular/forms';  // Para usar ngModel
 export class ComentarioModalComponent implements OnInit {
 
   @Input() rutina: { nombre: string };
-  public name: string = '';
-  public direccion = "Calle Madrid, numero 25";
+  public contenido: string = '';  
 
   constructor(private modalController: ModalController) {}
 
   ngOnInit() {}
 
-  async cerrarModal() {
+  async cerrarModalYGuardarComentario() {
     await this.modalController.dismiss({
-      direccion: this.direccion,
-      name: this.name  // Opcional: pasa el nombre también si lo deseas
+      contenido: this.contenido,// pasa el contenido del comentario 
     });
   }
 }
