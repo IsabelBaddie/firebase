@@ -13,6 +13,7 @@ import { PosturaI } from '../common/models/postura.models';
 import { PosturaRutinaService } from '../common/services/posturarutina.service';
 import { CategoriasService } from '../common/services/categorias.service';
 import { AutenticacionService } from '../common/services/autenticacion.service';
+import { RutinausuarioService } from '../common/services/rutinausuario.service';  // Importa el servicio de rutinausuario
 
 
 import { addIcons } from 'ionicons';
@@ -59,7 +60,7 @@ export class RoutinePage implements OnInit {
 
   posturasPorCategoria: { [categoriaId: string]: PosturaI[] } = {}; // Diccionario para guardar resultados por categoría
   categoriaSeleccionadaId: string | null = null;
-categoriasExpandida: { [categoriaId: string]: boolean } = {};
+  categoriasExpandida: { [categoriaId: string]: boolean } = {};
 
 
 
@@ -69,6 +70,7 @@ categoriasExpandida: { [categoriaId: string]: boolean } = {};
     private firestore: Firestore,
     private autenticacionService: AutenticacionService,
     private categoriasService: CategoriasService
+    , private rutinausuarioService: RutinausuarioService // Inyecta el servicio de rutinausuario
 
   ) {
     addIcons({ create: icons['create'], trash: icons['trash'] });
@@ -85,7 +87,7 @@ categoriasExpandida: { [categoriaId: string]: boolean } = {};
     await this.loadUser();
   }
 
-  async loadUser() {
+   /*async loadUser() {
     this.autenticacionService.onAuthStateChanged(async (user) => {
       if (user) {
         console.log('Usuario autenticado:', user);
@@ -100,13 +102,13 @@ categoriasExpandida: { [categoriaId: string]: boolean } = {};
         await this.storage.remove('usuarioActivo');
       }
     });
-  }
+  }*/
 
-async ngOnInit() {
-  this.cargarTodasLasPosturas();
-  await this.cargarCategorias(); // Espera a que se carguen
-  await this.cargarTodasLasPosturasPorCategoria(); // Luego carga las posturas por categoría
-}
+  async ngOnInit() {
+    this.cargarTodasLasPosturas();
+    await this.cargarCategorias(); // Espera a que se carguen
+    await this.cargarTodasLasPosturasPorCategoria(); // Luego carga las posturas por categoría
+  }
 
 
   cargarRutinas() {
@@ -200,16 +202,16 @@ async ngOnInit() {
     console.log('Postura seleccionada para rutina ' + rutinaId, this.posturasSeleccionadasId[rutinaId]);
   }
 
-async cargarCategorias(): Promise<void> {
-  try {
-    this.categorias = await this.categoriasService.getTodasCategorias();
-    console.log('Categorías cargadas:', this.categorias);
-  } catch (error) {
-    console.error('Error al cargar categorías:', error);
-  }
-  console.log('IDs de categorías:', this.categorias.map(c => c.id));
+  async cargarCategorias(): Promise<void> {
+    try {
+      this.categorias = await this.categoriasService.getTodasCategorias();
+      console.log('Categorías cargadas:', this.categorias);
+    } catch (error) {
+      console.error('Error al cargar categorías:', error);
+    }
+    console.log('IDs de categorías:', this.categorias.map(c => c.id));
 
-}
+  }
 
 
   async cargarTodasLasPosturasPorCategoria() {
@@ -221,25 +223,57 @@ async cargarCategorias(): Promise<void> {
   }
 
   async togglePosturasCategoria(categoriaId: string) {
-  // Si ya está expandida, la colapsamos
-  if (this.categoriasExpandida[categoriaId]) {
-    this.categoriasExpandida[categoriaId] = false;
-    return;
+    // Si ya está expandida, la colapsamos
+    if (this.categoriasExpandida[categoriaId]) {
+      this.categoriasExpandida[categoriaId] = false;
+      return;
+    }
+
+    // Si no tiene posturas cargadas, las pedimos
+    if (!this.posturasPorCategoria[categoriaId]) {
+      try {
+        const posturas = await this.categoriasService.getPosturasDeCategoria(categoriaId);
+        this.posturasPorCategoria[categoriaId] = posturas;
+      } catch (error) {
+        console.error('Error al cargar posturas de la categoría:', error);
+      }
+    }
+
+    // Expandimos la categoría
+    this.categoriasExpandida[categoriaId] = true;
   }
 
-  // Si no tiene posturas cargadas, las pedimos
-  if (!this.posturasPorCategoria[categoriaId]) {
-    try {
-      const posturas = await this.categoriasService.getPosturasDeCategoria(categoriaId);
-      this.posturasPorCategoria[categoriaId] = posturas;
-    } catch (error) {
-      console.error('Error al cargar posturas de la categoría:', error);
+  
+  // Cargar usuario activo desde el almacenamiento o Firebase
+  async loadUser() {
+    this.autenticacionService.onAuthStateChanged(async (user) => {
+      if (user) {
+        const datos = await this.autenticacionService.obtenerDatosUsuario();
+        this.usuarioActivo = datos;
+        await this.storage.set('usuarioActivo', datos);
+        await this.cargarRutinasUsuario();  // Cargar rutinas del usuario una vez esté autenticado
+      } else {
+        console.log('No hay usuario autenticado');
+        this.usuarioActivo = null;
+        await this.storage.remove('usuarioActivo');
+      }
+    });
+  }
+
+  // Cargar las rutinas asociadas al usuario
+  async cargarRutinasUsuario() {
+    if (this.usuarioActivo) {
+      this.rutinas = await this.rutinausuarioService.getRutinasDeUsuario(this.usuarioActivo.id);
     }
   }
 
-  // Expandimos la categoría
-  this.categoriasExpandida[categoriaId] = true;
-}
+  // Asignar una nueva rutina al usuario
+  async asignarRutina(rutinaId: string) {
+    if (this.usuarioActivo) {
+      await this.rutinausuarioService.asignarRutinaAUsuario(this.usuarioActivo.id, rutinaId);
+      this.cargarRutinasUsuario(); // Recargar las rutinas del usuario
+    }
+  }
 
 
 }
