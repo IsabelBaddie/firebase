@@ -27,6 +27,7 @@ import { Timestamp } from 'firebase/firestore';
 import { ComentarioModalComponent } from '../comentario-modal/comentario-modal.component';
 import { ModalController } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
+import { ComentarioI } from '../common/models/comentario.models';
 
 @Component({
   selector: 'app-routine',
@@ -56,6 +57,8 @@ export class RoutinePage implements OnInit {
   selectedPosturas: PosturaI[] = [];
   //rutinaSeleccionadaId: string = '';
   rutinaSeleccionada: any = null;
+  rutinaSeleccionadaId: string = '';  // Aquí se guardará el ID de la rutina seleccionada
+
 
   todasLasPosturas: PosturaI[] = [];
   posturasSeleccionadasId: { [key: string]: string } = {}; // inicializa el objeto vacío
@@ -241,20 +244,21 @@ export class RoutinePage implements OnInit {
 
 
   // Cargar usuario activo desde el almacenamiento o Firebase
-  async loadUser() {
-    this.autenticacionService.onAuthStateChanged(async (user) => {
-      if (user) {
-        const datos = await this.autenticacionService.obtenerDatosUsuario();
-        this.usuarioActivo = datos;
-        await this.storage.set('usuarioActivo', datos);
-        await this.cargarRutinasUsuario();  // Cargar rutinas del usuario una vez esté autenticado
-      } else {
-        console.log('No hay usuario autenticado');
-        this.usuarioActivo = null;
-        await this.storage.remove('usuarioActivo');
-      }
-    });
-  }
+async loadUser() {
+  this.autenticacionService.onAuthStateChanged(async (user) => {
+    if (user) {
+      const datos = await this.autenticacionService.obtenerDatosUsuario();
+      this.usuarioActivo = datos;
+      await this.storage.set('usuarioActivo', datos);
+      await this.cargarRutinasUsuario();  // Cargar rutinas del usuario una vez esté autenticado
+    } else {
+      console.log('No hay usuario autenticado');
+      this.usuarioActivo = null;
+      await this.storage.remove('usuarioActivo');
+    }
+  });
+}
+
 
   // Cargar las rutinas asociadas al usuario
   async cargarRutinasUsuario() {
@@ -273,28 +277,52 @@ export class RoutinePage implements OnInit {
   }
 
 
-  async abrirModalComentario(idRutina: string) {
-    console.log("Abrir modal de comentario para la rutina con ID:", idRutina);
+ async abrirModalComentario(rutinaId: string) {
+  this.rutinaSeleccionadaId = rutinaId;  // Guardamos el ID de la rutina seleccionada
 
-    if (this.modalActual) {
-      await this.modalActual.dismiss();
-      this.modalActual = null;
-      return this.modalActual;
-    }
+  const modal = await this.modalController.create({
+    component: ComentarioModalComponent,
+  });
 
-    this.modalActual = await this.modalController.create({
-      component: ComentarioModalComponent,
-      componentProps: { idRutina }, // (opcional) si quieres pasar el id
-    });
+  await modal.present();
 
-    await this.modalActual.present();
-    this.modalActual.onWillDismiss().then((datosRetornados) => {
-      if(datosRetornados.data) {
-        console.log("Datos retornados del modal:", datosRetornados.data);
+  // Escuchar cuando el modal se cierre y capturar el contenido del comentario
+  modal.onWillDismiss().then(async (result) => {
+    if (result.data) {
+      const comentarioContenido = result.data.contenido;
+      if (comentarioContenido) {
+        // Si hay un contenido de comentario, se guarda
+        await this.guardarComentario(comentarioContenido);
       }
+    }
+  });
+}
 
-     }) 
-    return this.modalActual;
+
+async guardarComentario(contenido: string) {
+  // Verificar si el usuario está autenticado
+  if (!this.usuarioActivo || !this.usuarioActivo.uid) {
+    console.error('No hay usuario autenticado o UID no disponible');
+    return;
   }
+
+  const comentario: ComentarioI = {
+    id: this.firestoreService.createIdDoc(),  // Generamos un ID único para el comentario
+    contenido: contenido,
+    fechaPublicacion: new Timestamp(Date.now() / 1000, 0),  // Fecha actual en formato Timestamp de Firebase
+    usuario_id: this.usuarioActivo.uid,  // Usamos el UID del usuario autenticado
+    rutina_id: this.rutinaSeleccionadaId  // Rutina asociada al comentario
+  };
+
+  try {
+    // Guardamos el comentario en la colección 'Comentarios'
+    await this.firestoreService.createDocumentID(comentario, 'comentarios', comentario.id);
+    console.log('Comentario guardado:', comentario);
+  } catch (error) {
+    console.error('Error al guardar el comentario en Firestore:', error);
+  }
+}
+
+
 
 }

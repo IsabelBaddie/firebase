@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { IonContent, IonInput, IonItem, IonLabel } from "@ionic/angular";  // Importa desde @ionic/angular (no standalone)
-import { ModalController, IonicModule } from '@ionic/angular'; 
-import { Input } from '@angular/core';
-import { FormsModule } from '@angular/forms';  // Para usar ngModel
+import { ModalController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';  // Importa IonicModule
+import { FormsModule } from '@angular/forms';  // Importa FormsModule para usar ngModel
 
 @Component({
   standalone: true,
   imports: [
-    IonicModule,  // Importa IonicModule para tener todos los componentes de Ionic
-    FormsModule    // Asegúrate de importar FormsModule para usar ngModel
+    IonicModule,  // Asegúrate de que IonicModule esté aquí
+    FormsModule    // Asegúrate de que FormsModule esté aquí para usar ngModel
   ],
   selector: 'app-comentario-modal',
   templateUrl: './comentario-modal.component.html',
@@ -16,17 +15,15 @@ import { FormsModule } from '@angular/forms';  // Para usar ngModel
 })
 export class ComentarioModalComponent implements OnInit {
 
-  @Input() rutina: { nombre: string };
-  public contenido: string = '';  
+  public contenido: string = '';  // Contenido del comentario
 
   constructor(private modalController: ModalController) {}
 
   ngOnInit() {}
 
-  async cerrarModalYGuardarComentario() {
+  async cerrarModal() {
     await this.modalController.dismiss({
-      contenido: this.contenido,// pasa el contenido del comentario 
+      contenido: this.contenido  // Pasar el contenido al cerrar el modal
     });
   }
 }
-
