@@ -14,7 +14,7 @@ import { PosturaRutinaService } from '../common/services/posturarutina.service';
 import { CategoriasService } from '../common/services/categorias.service';
 import { AutenticacionService } from '../common/services/autenticacion.service';
 import { RutinausuarioService } from '../common/services/rutinausuario.service';  // Importa el servicio de rutinausuario
-
+import { RutinasService } from '../common/services/rutinas.service';
 
 import { addIcons } from 'ionicons';
 import * as icons from 'ionicons/icons';
@@ -58,6 +58,9 @@ export class RoutinePage implements OnInit {
   rutina: any;
   categorias: any[] = [];
 
+  todasLasRutinas: RoutineI[] = [];
+  rutinaAAsignarId: string = '';
+
   posturasPorCategoria: { [categoriaId: string]: PosturaI[] } = {}; // Diccionario para guardar resultados por categoría
   categoriaSeleccionadaId: string | null = null;
   categoriasExpandida: { [categoriaId: string]: boolean } = {};
@@ -71,6 +74,7 @@ export class RoutinePage implements OnInit {
     private autenticacionService: AutenticacionService,
     private categoriasService: CategoriasService
     , private rutinausuarioService: RutinausuarioService // Inyecta el servicio de rutinausuario
+    , private rutinaService: RutinasService
 
   ) {
     addIcons({ create: icons['create'], trash: icons['trash'] });
@@ -87,27 +91,11 @@ export class RoutinePage implements OnInit {
     await this.loadUser();
   }
 
-   /*async loadUser() {
-    this.autenticacionService.onAuthStateChanged(async (user) => {
-      if (user) {
-        console.log('Usuario autenticado:', user);
-        // Puedes consultar datos adicionales desde Firestore si lo necesitas
-        const datos = await this.autenticacionService.obtenerDatosUsuario();
-        this.usuarioActivo = datos;
-        // Opcional: guardar en Storage
-        await this.storage.set('usuarioActivo', datos);
-      } else {
-        console.log('No hay usuario autenticado.');
-        this.usuarioActivo = null;
-        await this.storage.remove('usuarioActivo');
-      }
-    });
-  }*/
-
   async ngOnInit() {
     this.cargarTodasLasPosturas();
     await this.cargarCategorias(); // Espera a que se carguen
     await this.cargarTodasLasPosturasPorCategoria(); // Luego carga las posturas por categoría
+    this.todasLasRutinas = await this.rutinaService.getTodasLasRutinas(); // O el método que uses
   }
 
 
@@ -243,7 +231,7 @@ export class RoutinePage implements OnInit {
     this.categoriasExpandida[categoriaId] = true;
   }
 
-  
+
   // Cargar usuario activo desde el almacenamiento o Firebase
   async loadUser() {
     this.autenticacionService.onAuthStateChanged(async (user) => {
@@ -264,6 +252,7 @@ export class RoutinePage implements OnInit {
   async cargarRutinasUsuario() {
     if (this.usuarioActivo) {
       this.rutinas = await this.rutinausuarioService.getRutinasDeUsuario(this.usuarioActivo.id);
+      console.log('Rutinas del usuario cargadas:', this.rutinas);
     }
   }
 

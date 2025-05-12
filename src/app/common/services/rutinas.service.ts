@@ -13,6 +13,18 @@ export class RutinasService {
 
   constructor(private firestore: Firestore, private firestoreService: FirestoreService) { }
 
+async getTodasLasRutinas(): Promise<RoutineI[]> {
+  const coleccionRutinas = collection(this.firestore, 'Rutinas');
+  const snapshot = await getDocs(coleccionRutinas);
+  return snapshot.docs.map(doc => {
+    return {
+      id: doc.id,
+      ...doc.data()
+    } as RoutineI;
+  });
+}
+
+
   async crearRutinasPorDefectoParaUsuario() {
     // Verificamos si ya existen rutinas por defecto
     const coleccionRutinas = collection(this.firestore, 'Rutinas');

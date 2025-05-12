@@ -117,9 +117,24 @@
   </ion-card-content>
 </ion-card>
 
-
-
-    
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Asignar Rutina Existente al Usuario</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-item>
+      <ion-label position="stacked">Selecciona una rutina</ion-label>
+      <ion-select [(ngModel)]="rutinaAAsignarId" placeholder="Selecciona rutina">
+        <ion-select-option *ngFor="let rutina of todasLasRutinas" [value]="rutina.id">
+          {{ rutina.nombre }} ({{ rutina.dificultad }})
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button expand="block" color="success" (click)="asignarRutina(rutinaAAsignarId)" [disabled]="!rutinaAAsignarId">
+      Asignar Rutina al Usuario
+    </ion-button>
+  </ion-card-content>
+</ion-card>
 
 
   </ion-list>
