@@ -301,7 +301,7 @@ async loadUser() {
 
 async guardarComentario(contenido: string) {
   // Verificar si el usuario está autenticado
-  if (!this.usuarioActivo || !this.usuarioActivo.uid) {
+  if (!this.usuarioActivo.id) {
     console.error('No hay usuario autenticado o UID no disponible');
     return;
   }
@@ -310,7 +310,7 @@ async guardarComentario(contenido: string) {
     id: this.firestoreService.createIdDoc(),  // Generamos un ID único para el comentario
     contenido: contenido,
     fechaPublicacion: new Timestamp(Date.now() / 1000, 0),  // Fecha actual en formato Timestamp de Firebase
-    usuario_id: this.usuarioActivo.uid,  // Usamos el UID del usuario autenticado
+    usuario_id: this.usuarioActivo.id,  // Usamos el UID del usuario autenticado
     rutina_id: this.rutinaSeleccionadaId  // Rutina asociada al comentario
   };
 
